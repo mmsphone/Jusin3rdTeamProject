@@ -3,7 +3,8 @@
 #include "InputSystem.h"
 #include "Engine.h"
 
-InputSystem::InputSystem() : keyDown(KEY_COUNT, false), wasKeyDown(KEY_COUNT, false) {}
+InputSystem::InputSystem() : keyDown(KEY_COUNT, false), wasKeyDown(KEY_COUNT, false), mouseDown(false), wasMouseDown(false)
+{}
 
 void InputSystem::OnKeyDown(WPARAM key) {
     if (key < KEY_COUNT) {
@@ -32,10 +33,11 @@ void InputSystem::OnMouseUp()
 }
 void InputSystem::Tick() {
     wasKeyDown = keyDown; // snapshot of previous frame
+    wasMouseDown = mouseDown;
 }
 
 bool InputSystem::IsKeyDown(WPARAM key) const {
-    return isKeyWork && keyDown[key];
+    return isKeyWork && key < KEY_COUNT&& keyDown[key];
 }
 
 bool InputSystem::IsKeyPressed(WPARAM key) const {
@@ -62,9 +64,7 @@ math::vec2 InputSystem::GetMousePos()
     POINT pt;
     GetCursorPos(&pt);
     ScreenToClient(Engine::GetInstance().GethWnd(), &pt);
-    mousePos.x = pt.x;
-    mousePos.y = pt.y;
-    return mousePos;
+    return { pt.x,pt.y };
 }
 
 void InputSystem::SetKeyWork(bool keyWork)
