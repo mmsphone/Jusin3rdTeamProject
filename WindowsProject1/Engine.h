@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 class SceneManager;
 class InputSystem;
+class SoundManager;
 class Engine
 {
 public:
@@ -36,5 +37,6 @@ private:
 public:
 	std::unique_ptr<SceneManager> sceneManager;
 	std::unique_ptr<InputSystem> inputSystem;
+	std::unique_ptr<SoundManager> soundManager;
 };
 

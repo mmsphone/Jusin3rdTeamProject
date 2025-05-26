@@ -1,7 +1,8 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Engine.h"
 #include "SceneManager.h"
 #include "InputSystem.h"
+#include "SoundManager.h"
 Engine& Engine::GetInstance()
 {
 	static Engine instance;
@@ -20,37 +21,33 @@ bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
     sceneManager->Initialize();
     inputSystem = std::make_unique<InputSystem>();
 
+    soundManager = std::make_unique<SoundManager>();
+    soundManager->Initialize();
+
     return true;
 }
 
-void Engine::Run()
-{
-    while (isRunning)
-    {
-        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-        double dt = std::chrono::duration<double>(now - lastTick).count();
+void Engine::Run() {
+    while (isRunning) {
+        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+            if (msg.message == WM_QUIT)
+                return;
 
-        if (dt > Engine::FramePurpose * 2) { // frame lock
-            dt = Engine::FramePurpose;
-        }
-        if (dt >= Engine::FramePurpose) {
-            lastTick = now;
-
-            //main update 
-            sceneManager->Update(dt);
-            inputSystem->Tick();
-            Render();
-            if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
-            {
-                if (msg.message == WM_QUIT) return;
-
-
-                if (!TranslateAccelerator(msg.hwnd, hAccel, &msg))
-                {
-                    TranslateMessage(&msg);
-                    DispatchMessage(&msg);
-                }
+            if (!TranslateAccelerator(msg.hwnd, hAccel, &msg)) {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
             }
+        }
+
+        auto now = std::chrono::system_clock::now();
+        double dt = std::chrono::duration<double>(now - lastTick).count();
+        if (dt > FramePurpose * 2.0) dt = FramePurpose;
+
+        if (dt >= FramePurpose) {
+            lastTick = now;
+            inputSystem->Tick();
+            sceneManager->Update(dt);
+            Render();
         }
     }
 }
@@ -63,6 +60,11 @@ void Engine::Shutdown()
 InputSystem* Engine::GetInputSystem()
 {
     return inputSystem.get();
+}
+
+SoundManager* Engine::GetSoundManager()
+{
+    return soundManager.get();
 }
 
 HWND Engine::GethWnd()
@@ -118,35 +120,32 @@ bool Engine::InitWindow(HINSTANCE hInstance, int nCmdShow)
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
-    SetTimer(hWnd, 1, 10, nullptr);
     return true;
 }
 
 LRESULT CALLBACK Engine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    auto input = Engine::GetInstance().GetInputSystem();
     switch (message)
     {
     case WM_KEYDOWN:
-        Engine::GetInstance().GetInputSystem()->OnKeyDown(wParam);
+        input->OnKeyDown(wParam);
         break;
 
     case WM_KEYUP:
-        Engine::GetInstance().GetInputSystem()->OnKeyUp(wParam);
+        input->OnKeyUp(wParam);
         break;
 
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
-    case WM_MOUSEMOVE:
-        Engine::GetInstance().GetInputSystem()->OnMouseMove(LOWORD(lParam), HIWORD(lParam));
-        break;
 
     case WM_LBUTTONDOWN:
-        Engine::GetInstance().GetInputSystem()->OnMouseDown();
+        input->OnMouseDown();
         break;
 
     case WM_LBUTTONUP:
-        Engine::GetInstance().GetInputSystem()->OnMouseUp();
+        input->OnMouseUp();
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
