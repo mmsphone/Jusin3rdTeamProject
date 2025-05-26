@@ -31,7 +31,7 @@ private:
 
 private:
 	std::chrono::system_clock::time_point lastTick;
-	static constexpr double FramePurpose = 1 / 144.;
+	static constexpr double FramePurpose = 1. / 144.;
 
 public:
 	std::unique_ptr<SceneManager> sceneManager;

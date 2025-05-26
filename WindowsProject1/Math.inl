@@ -66,14 +66,16 @@ namespace math
     constexpr bool vec2::operator>=(vec2 other) noexcept { return x >= other.x && y >= other.y; }
 
     inline vec2 vec2::Normalize() const noexcept {
-        double length = std::sqrt(x * x + y * y);
-        return { x / length, y / length };
+        double dLength = std::sqrt(x * x + y * y);
+        if (math::is_equal(dLength, 0.0))
+            return { 0.0, 0.0 };
+        return { x / dLength, y / dLength };
     }
     constexpr double vec2::Cross(const vec2& v) const noexcept { return x * v.y - y * v.x; }
 
     inline double vec2::Distance(const vec2& v) const noexcept
     {
-        return sqrt((x - v.x) * (x - v.x) + (y - v.y) * (y - v.y));
+        return std::sqrt((x - v.x) * (x - v.x) + (y - v.y) * (y - v.y));
     }
 
     inline double vec2::Length() const noexcept {
@@ -108,7 +110,7 @@ namespace math
         matrix[2][0] = 0;                   matrix[2][1] = 0;                       matrix[2][2] = 1;
     }
 
-    inline TransformMatrix TransformMatrix::operator * (TransformMatrix rhs) const {
+    inline TransformMatrix TransformMatrix::operator * (const TransformMatrix& rhs) const {
         TransformMatrix result;
 
         result.matrix[0][0] = matrix[0][0] * rhs[0][0] + matrix[0][1] * rhs[1][0] + matrix[0][2] * rhs[2][0];
@@ -131,7 +133,7 @@ namespace math
         return result;
     }
 
-    inline TransformMatrix& TransformMatrix::operator *= (TransformMatrix rhs) {
+    inline TransformMatrix& TransformMatrix::operator *= (const TransformMatrix& rhs) {
         (*this) = (*this) * rhs;
         return (*this);
     }

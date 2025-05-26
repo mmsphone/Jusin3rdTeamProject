@@ -76,8 +76,8 @@ namespace math {
         TransformMatrix();
 
         const double* operator[](int index) const { return matrix[index]; }
-        TransformMatrix operator * (TransformMatrix rhs) const;
-        TransformMatrix& operator *= (TransformMatrix rhs);
+        TransformMatrix operator * (const TransformMatrix& rhs) const;
+        TransformMatrix& operator *= (const TransformMatrix& rhs);
         vec2 operator * (vec2 rhs) const;
         void Reset();
     protected:
