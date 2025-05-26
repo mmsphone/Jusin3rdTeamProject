@@ -10,8 +10,9 @@ public:
     TextureManager(TextureManager&&) = delete;
     TextureManager& operator=(TextureManager&&) = delete;
 
-    void InsertTexture(const std::wstring& filePath, const std::wstring& key);
+    void InsertTexture(const std::wstring& filePath, const std::wstring& key, int width, int height);
     HDC FindTexture(const std::wstring& key) const;
+    D3DXVECTOR3 GetTextureSize(const std::wstring& key) const;
     void Release();
 
 private:
@@ -19,6 +20,7 @@ private:
         HDC hdc = nullptr;
         HBITMAP hBitmap = nullptr;
         HBITMAP hOldBitmap = nullptr;
+        D3DXVECTOR3 size = { 0,0,0 };
     };
 
     std::unordered_map<std::wstring, TextureData> textureMap;
