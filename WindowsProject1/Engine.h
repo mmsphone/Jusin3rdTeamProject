@@ -2,6 +2,7 @@
 class SceneManager;
 class InputSystem;
 class SoundManager;
+class TextureManager;
 class Engine
 {
 public:
@@ -12,6 +13,7 @@ public:
 	void Shutdown();
 	InputSystem* GetInputSystem();
 	SoundManager* GetSoundManager();
+	TextureManager* GetTextureManager();
 	HWND GethWnd();
 
 	RECT GetWindowSize();
@@ -39,5 +41,6 @@ public:
 	std::unique_ptr<SceneManager> sceneManager;
 	std::unique_ptr<InputSystem> inputSystem;
 	std::unique_ptr<SoundManager> soundManager;
+	std::unique_ptr<TextureManager> textureManager;
 };
 

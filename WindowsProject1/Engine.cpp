@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "InputSystem.h"
 #include "SoundManager.h"
+#include "TextureManager.h"
 Engine& Engine::GetInstance()
 {
 	static Engine instance;
@@ -24,30 +25,39 @@ bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
     soundManager = std::make_unique<SoundManager>();
     soundManager->Initialize();
 
+    textureManager = std::make_unique<TextureManager>();
+
     return true;
 }
 
-void Engine::Run() {
-    while (isRunning) {
-        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-            if (msg.message == WM_QUIT)
-                return;
-
-            if (!TranslateAccelerator(msg.hwnd, hAccel, &msg)) {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
-        }
-
-        auto now = std::chrono::system_clock::now();
+void Engine::Run()
+{
+    while (isRunning)
+    {
+        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
         double dt = std::chrono::duration<double>(now - lastTick).count();
-        if (dt > FramePurpose * 2.0) dt = FramePurpose;
 
-        if (dt >= FramePurpose) {
+        if (dt > Engine::FramePurpose * 2) { // frame lock
+            dt = Engine::FramePurpose;
+        }
+        if (dt >= Engine::FramePurpose) {
             lastTick = now;
-            inputSystem->Tick();
+
+            //main update 
             sceneManager->Update(dt);
+            inputSystem->Tick();
             Render();
+            if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+            {
+                if (msg.message == WM_QUIT) return;
+
+
+                if (!TranslateAccelerator(msg.hwnd, hAccel, &msg))
+                {
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                }
+            }
         }
     }
 }
@@ -65,6 +75,11 @@ InputSystem* Engine::GetInputSystem()
 SoundManager* Engine::GetSoundManager()
 {
     return soundManager.get();
+}
+
+TextureManager* Engine::GetTextureManager()
+{
+    return textureManager.get();
 }
 
 HWND Engine::GethWnd()
