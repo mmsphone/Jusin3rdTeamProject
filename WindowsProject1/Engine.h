@@ -10,6 +10,7 @@ public:
 	void Run();
 	void Shutdown();
 	InputSystem* GetInputSystem();
+	HWND GethWnd();
 
 	RECT GetWindowSize();
 private:

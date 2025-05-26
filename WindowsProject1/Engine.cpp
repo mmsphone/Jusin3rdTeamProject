@@ -64,6 +64,11 @@ InputSystem* Engine::GetInputSystem()
     return inputSystem.get();
 }
 
+HWND Engine::GethWnd()
+{
+    return hWnd;
+}
+
 RECT Engine::GetWindowSize()
 {
     return windowSize;
@@ -131,7 +136,17 @@ LRESULT CALLBACK Engine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+    case WM_MOUSEMOVE:
+        Engine::GetInstance().GetInputSystem()->OnMouseMove(LOWORD(lParam), HIWORD(lParam));
+        break;
 
+    case WM_LBUTTONDOWN:
+        Engine::GetInstance().GetInputSystem()->OnMouseDown();
+        break;
+
+    case WM_LBUTTONUP:
+        Engine::GetInstance().GetInputSystem()->OnMouseUp();
+        break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
