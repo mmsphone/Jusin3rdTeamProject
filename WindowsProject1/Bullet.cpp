@@ -23,10 +23,14 @@ void Bullet::Update(double dt)
 {
     //위치 업데이트
     auto transform = GetComponent<TransformComponent>();
-    float currRotate = transform->GetRotation();
-    math::RotateMatrix rotMat(currRotate);
+    float currRotate = transform->GetRotationZ();
+    D3DXMATRIX rotMat;
+    D3DXMatrixRotationZ(&rotMat, currRotate);
     
-    math::vec2 velocity = rotMat * math::vec2(speed, speed) * dt;
+    D3DXVECTOR3 v = D3DXVECTOR3(speed, speed, 0);
+    D3DXVECTOR3 vRotated;
+    D3DXVec3TransformNormal(&vRotated, &v, &rotMat);
+    D3DXVECTOR3 velocity = vRotated * dt;
     transform->Translate(velocity.x, velocity.y);
 
     //충돌 업데이트

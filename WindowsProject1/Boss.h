@@ -24,7 +24,7 @@ private:
         int bulletNumber = 0;
         static constexpr double BULLET_COOLDOWN = 0.02;
         double timer = 0.;
-        math::vec2 startPos;
+        D3DXVECTOR3 startPos;
         static constexpr double START_POS_OFFSET = 5;
         double startAngle;
     };
@@ -37,7 +37,7 @@ private:
         int bulletNumber = 0;
         static constexpr double BULLET_COOLDOWN = 0.02;
         double timer = 0.;
-        math::vec2 startPos;
+        D3DXVECTOR3 startPos;
         static constexpr double START_POS_OFFSET = 5;
 
         double angle = 0.;
@@ -50,7 +50,7 @@ private:
     BossAttack2 bossAttack2;
 
 
-    math::vec2 area[4];
+    D3DXVECTOR3 area[4];
 
     bool clockwise = true;
 };

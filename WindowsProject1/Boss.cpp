@@ -11,15 +11,15 @@ Boss::Boss(ObjectManager* owner, ObjectType objType, double speed) : Object(owne
 	transform->SetScale(100, 300);
 	RECT windowSize = Engine::GetInstance().GetWindowSize();
 
-	math::vec2 center{ windowSize.right * 3. / 4., windowSize.bottom / 2. };
+	D3DXVECTOR3 center{ windowSize.right * 3.f / 4.f, windowSize.bottom / 2.f, 0.f};
 
-	transform->SetPosition(center);
+	transform->SetPosition(center.x,center.y);
 	ChangeState(&bossIdle);
 
-	area[0] = math::vec2{ windowSize.right * 3. / 4., windowSize.bottom / 4. }; //top
-	area[1] = math::vec2{ windowSize.right * 7. / 8., windowSize.bottom / 2. }; //right
-	area[2] = math::vec2{ windowSize.right * 3. / 4., windowSize.bottom * 3 / 4. }; //bottom
-	area[3] = math::vec2{ windowSize.right * 5. / 8., windowSize.bottom / 2. }; //left
+	area[0] = D3DXVECTOR3{ windowSize.right * 3.f / 4.f, windowSize.bottom / 4.f, 0.f }; //top
+	area[1] = D3DXVECTOR3{ windowSize.right * 7.f / 8.f, windowSize.bottom / 2.f, 0.f }; //right
+	area[2] = D3DXVECTOR3{ windowSize.right * 3.f / 4.f, windowSize.bottom * 3 / 4.f, 0.f }; //bottom
+	area[3] = D3DXVECTOR3{ windowSize.right * 5.f / 8.f, windowSize.bottom / 2.f, 0.f }; //left
 }
 
 void Boss::Update(double dt)
@@ -69,11 +69,11 @@ void Boss::BossAttack1::Update(Object* owner, double dt)
 		auto bullet = std::make_shared<Bullet>(owner->GetOwner(), ObjectType::EBullet, 50.);
 		auto bulletTransform = bullet->AddComponent<TransformComponent>();
 		double rotate = startAngle + bulletNumber * 0.2;
-		math::vec2 startPositionGap = { START_POS_OFFSET * cos(rotate) + START_POS_OFFSET * sin(rotate), START_POS_OFFSET * cos(rotate) - START_POS_OFFSET * sin(rotate) };
+		D3DXVECTOR3 startPositionGap = { float(START_POS_OFFSET * cos(rotate) + START_POS_OFFSET * sin(rotate)), float(START_POS_OFFSET * cos(rotate) - START_POS_OFFSET * sin(rotate)), 0.f };
 
 		bulletTransform->SetPosition(startPos.x + startPositionGap.x, startPos.y + startPositionGap.y);
 		bulletTransform->SetScale(20., 20.);
-		bulletTransform->SetRotation(rotate);
+		bulletTransform->SetRotationZ(rotate);
 		boss->GetOwner()->AddObject(ObjectType::EBullet, bullet);
 		bulletNumber++;
 	}
@@ -110,11 +110,11 @@ void Boss::BossAttack2::Update(Object* owner, double dt)
 
 		double rotate = angle + bulletNumber * PI / TOTAL_BULLET_NUMBER;
 
-		math::vec2 startPositionGap = { START_POS_OFFSET * cos(rotate) + START_POS_OFFSET * sin(rotate), START_POS_OFFSET * cos(rotate) - START_POS_OFFSET * sin(rotate) };
+		D3DXVECTOR3 startPositionGap = { float(START_POS_OFFSET * cos(rotate) + START_POS_OFFSET * sin(rotate)), float(START_POS_OFFSET * cos(rotate) - START_POS_OFFSET * sin(rotate)), 0.f };
 
 		bulletTransform->SetPosition(startPos.x + startPositionGap.x, startPos.y + startPositionGap.y);
 		bulletTransform->SetScale(20., 20.);
-		bulletTransform->SetRotation(rotate);
+		bulletTransform->SetRotationZ(rotate);
 
 		boss->GetOwner()->AddObject(ObjectType::EBullet, bullet);
 		bulletNumber++;

@@ -16,7 +16,7 @@ public:
     bool IsMouseDown() const;
     bool IsMousePressed() const;
     bool IsMouseReleased() const;
-    math::vec2 GetMousePos();
+    D3DXVECTOR3 GetMousePos();
 
     void SetKeyWork(bool keyWork);
     void SetMouseWork(bool mouseWork);
@@ -30,5 +30,5 @@ private:
     bool isKeyWork = true;
     bool isMouseWork = true;
 
-    math::vec2 mousePos;
+    D3DXVECTOR3 mousePos;
 };

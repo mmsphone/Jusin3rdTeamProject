@@ -41,12 +41,5 @@ void Player::Update(double dt)
 
     if (input->IsKeyPressed(VK_SPACE))
     {
-        //auto bullet = std::make_shared<Bullet>(owner);
-        //auto bulletTransform = bullet->AddComponent<TransformComponent>();
-
-        //auto scale = math::vec2{ 10, 5 };
-        //bulletTransform->SetScale(scale.x, scale.y);
-
-        //owner->AddObject(ObjectType::PBullet, bullet);
     }
 }

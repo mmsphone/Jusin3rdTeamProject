@@ -19,7 +19,7 @@ void InputSystem::OnKeyUp(WPARAM key) {
 }
 void InputSystem::OnMouseMove(int x, int y)
 {
-    mousePos = { x, y };
+    mousePos = { (float)x, (float)y, 0 };
 }
 
 void InputSystem::OnMouseDown()
@@ -59,12 +59,14 @@ bool InputSystem::IsMouseReleased() const {
     return isMouseWork && !mouseDown && wasMouseDown;
 }
 
-math::vec2 InputSystem::GetMousePos()
+D3DXVECTOR3 InputSystem::GetMousePos()
 {
     POINT pt;
     GetCursorPos(&pt);
     ScreenToClient(Engine::GetInstance().GethWnd(), &pt);
-    return { pt.x,pt.y };
+    mousePos.x = pt.x;
+    mousePos.y = pt.y;
+    return mousePos;
 }
 
 void InputSystem::SetKeyWork(bool keyWork)

@@ -1,70 +1,73 @@
 #pragma once
 #include "ObjectComponent.h"
+
 class TransformComponent : public ObjectComponent {
 public:
-    math::vec2 position = { 0.0f, 0.0f }; 
-    float rotation = 0.0f;            
-    math::vec2 scale = { 1.0f, 1.0f }; 
+    D3DXVECTOR3 vPosition{ 0.0f, 0.0f, 0.0f };
+    float fRotationZ = 0.0f;  // 라디안 단위
+    D3DXVECTOR3 vScale{ 1.0f, 1.0f, 1.0f };
+
+private:
+    D3DXMATRIX matWorld;
+    bool bDirty = true;
 
 public:
     TransformComponent() = default;
     virtual ~TransformComponent() override = default;
-    virtual void Initialize() {};
-    virtual void Update(double dt) override {};
+    virtual void Initialize() override {}
+    virtual void Update(double dt) override {}
 
-    void SetPosition(float x, float y) {
-        position.x = x;
-        position.y = y;
+    void SetPosition(float x, float y, float z = 0.0f) {
+        vPosition = D3DXVECTOR3(x, y, z);
+        bDirty = true;
     }
 
-    void SetPosition(math::vec2 pos) {
-        position = pos;
+    void Translate(float dx, float dy, float dz = 0.0f) {
+        vPosition += D3DXVECTOR3(dx, dy, dz);
+        bDirty = true;
     }
 
-    void Translate(float dx, float dy) {
-        position.x += dx;
-        position.y += dy;
+    void SetRotationZ(float angleRadians) {
+        fRotationZ = angleRadians;
+        bDirty = true;
     }
 
-    void Translate(math::vec2 dpos) {
-        Translate(dpos.x, dpos.y);
+    void RotateZ(float deltaRadians) {
+        fRotationZ += deltaRadians;
+        bDirty = true;
     }
 
-    void SetRotation(float angle) {
-        rotation = angle;
+    void SetScale(float sx, float sy, float sz = 1.0f) {
+        vScale = D3DXVECTOR3(sx, sy, sz);
+        bDirty = true;
     }
 
-    void Rotate(float dAngle) {
-        rotation += dAngle;
+    void ScaleBy(float sx, float sy, float sz = 1.0f) {
+        vScale.x *= sx;
+        vScale.y *= sy;
+        vScale.z *= sz;
+        bDirty = true;
     }
 
-    void SetScale(float sx, float sy) {
-        scale.x = sx;
-        scale.y = sy;
+    const D3DXVECTOR3& GetPosition() const { return vPosition; }
+    float GetRotationZ() const { return fRotationZ; }
+    const D3DXVECTOR3& GetScale() const { return vScale; }
+
+    const D3DXMATRIX& GetWorldMatrix() {
+        UpdateMatrix();
+        return matWorld;
     }
 
-    void SetScale(math::vec2 s) {
-        scale = s;
-    }
+private:
+    void UpdateMatrix() {
+        if (!bDirty) return;
 
-    void ScaleBy(float sx, float sy) {
-        scale.x *= sx;
-        scale.y *= sy;
-    }
+        D3DXMATRIX matS, matR, matT;
+        D3DXMatrixScaling(&matS, vScale.x, vScale.y, vScale.z);
+        D3DXMatrixRotationZ(&matR, fRotationZ);
+        D3DXMatrixTranslation(&matT, vPosition.x, vPosition.y, vPosition.z);
 
-    void ScaleBy(math::vec2 s) {
-        ScaleBy(s.x, s.y);
-    }
-
-    math::vec2 GetPosition() const {
-        return position;
-    }
-
-    float GetRotation() const {
-        return rotation;
-    }
-
-    math::vec2 GetScale() const {
-        return scale;
+        matWorld = matS * matR * matT;
+        bDirty = false;
     }
 };

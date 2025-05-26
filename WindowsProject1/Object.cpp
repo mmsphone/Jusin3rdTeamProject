@@ -20,8 +20,8 @@ void Object::Render(HDC hdc)
 	auto transform = GetComponent<TransformComponent>();
 	if (!transform) return; // 없으면 그리지 않음
 
-	math::vec2 pos = transform->GetPosition();
-	math::vec2 scale = transform->GetScale();
+	D3DXVECTOR3 pos = transform->GetPosition();
+	D3DXVECTOR3 scale = transform->GetScale();
 
 	int halfWidth = static_cast<int>(scale.x * 0.5f);
 	int halfHeight = static_cast<int>(scale.y * 0.5f);
