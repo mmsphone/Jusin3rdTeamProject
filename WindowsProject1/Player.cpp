@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Player.h"
 #include "TransformComponent.h"
 #include "CollisionComponent.h"
@@ -21,11 +21,15 @@ Player::Player(ObjectManager* owner, ObjectType objType, double speed)
 
 void Player::Update(double dt)
 {
+    KeyInput(dt);
+}
+
+void Player::KeyInput(double dt)
+{
     auto transform = GetComponent<TransformComponent>();
     if (!transform) return;
 
-    auto input = Engine::GetInstance().GetInputSystem(); 
-
+    auto input = Engine::GetInstance().GetInputSystem();
     if (input->IsKeyDown(VK_UP)) {
         transform->Translate(0, -speed * static_cast<float>(dt));
     }
@@ -38,7 +42,6 @@ void Player::Update(double dt)
     if (input->IsKeyDown(VK_RIGHT)) {
         transform->Translate(speed * static_cast<float>(dt), 0);
     }
-
     if (input->IsKeyPressed(VK_SPACE))
     {
     }
