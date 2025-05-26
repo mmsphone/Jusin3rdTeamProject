@@ -5,7 +5,7 @@
 #include "TransformComponent.h"
 #include "Engine.h"
 
-Boss::Boss(ObjectManager* owner, ObjectType objType, double speed) : Object(owner, objType, RenderType::Rect), speed(speed), clockwise(true), currArea(0)
+Boss::Boss(ObjectManager* owner, ObjectType objType, double speed) : Object(owner, objType, RenderType::Rect), speed(speed), clockwise(true)
 {
 	auto transform = AddComponent<TransformComponent>();
 	transform->SetScale(100, 300);
