@@ -10,7 +10,7 @@ Engine& Engine::GetInstance()
 
 bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
 {
-    hInstance = hInstance;
+    this->hInstance = hInstance;
     msg.message = WM_NULL;
 
     if (!InitWindow(hInstance, nCmdShow))
@@ -57,6 +57,7 @@ void Engine::Run()
 
 void Engine::Shutdown()
 {
+    DestroyWindow(hWnd);
 }
 
 InputSystem* Engine::GetInputSystem()
@@ -173,7 +174,6 @@ void Engine::Render()
 
     SelectObject(memDC, oldBitmap);
     DeleteObject(memBitmap);
-    DeleteDC(memDC);
-
     ReleaseDC(hWnd, hdc);
+    DeleteDC(memDC);
 }
