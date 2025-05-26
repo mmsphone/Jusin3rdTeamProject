@@ -29,6 +29,18 @@
 #include <sstream>
 #include <chrono>
 
+#include <fmod.hpp>
+#include <fmod_errors.h>
+#pragma comment(lib, "../fMod/core/lib/x64/fmod_vc.lib")
+
+#include <vfw.h>
+#pragma comment(lib, "vfw32.lib")
+
+#include <d3d9.h>
+#include <d3dx9.h>
+
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
 
 #ifdef _DEBUG
 
@@ -56,6 +68,8 @@ enum class ObjectType : int
 	PBullet,
 	EBullet,
 	Effect,
+	UI,
+	Cursor,
 	Count
 };
 
