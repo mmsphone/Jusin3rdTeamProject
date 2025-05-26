@@ -1,11 +1,11 @@
 ﻿#include "pch.h"
 #include "Scene.h"
-#include "GameScene.h"
+#include "GameScene1.h"
 #include "ObjectManager.h"
 #include "Player.h"
 #include "Background.h"
 #include "Boss.h"
-void GameScene::Load()
+void GameScene1::Load()
 {
 	Scene::Load();
 	objectManager->AddObject(ObjectType::Neutral, std::make_shared<Background>(objectManager.get(), ObjectType::Neutral));
@@ -13,15 +13,15 @@ void GameScene::Load()
 	objectManager->AddObject(ObjectType::Enemy, std::make_shared<Boss>(objectManager.get(), ObjectType::Enemy, 100.));
 }
 
-void GameScene::Update(double dt)
+void GameScene1::Update(double dt)
 {
 	objectManager->Update(dt);
 }
 
-void GameScene::Render(HDC hdc)
+void GameScene1::Render(HDC hdc)
 {
 	objectManager->Render(hdc);
 }
 
-void GameScene::Unload()
+void GameScene1::Unload()
 {}

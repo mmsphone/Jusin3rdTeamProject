@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Boss.h"
 #include "ObjectManager.h"
 #include "Bullet.h"
@@ -27,8 +27,6 @@ void Boss::Update(double dt)
 	Object::Update(dt);
 	auto transform = GetComponent<TransformComponent>();
 	transform->Translate(0, speed * dt);
-
-
 }
 
 void Boss::BossIdle::Enter(Object*)

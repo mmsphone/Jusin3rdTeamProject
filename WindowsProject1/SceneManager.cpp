@@ -1,12 +1,20 @@
 ﻿#include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "GameScene.h"
+#include "GameScene1.h"
+#include "GameScene2.h"
+#include "GameScene3.h"
+#include "GameScene4.h"
+#include "MenuScene.h"
 
 void SceneManager::Initialize()
 {
-	AddScene("Game", std::make_shared<GameScene>());
-	SetActiveScene("Game");
+	AddScene("Menu", std::make_shared<MenuScene>());
+	AddScene("Game1", std::make_shared<GameScene1>());
+	AddScene("Game2", std::make_shared<GameScene2>());
+	AddScene("Game3", std::make_shared<GameScene3>());
+	AddScene("Game4", std::make_shared<GameScene4>());
+	SetActiveScene("Menu");
 }
 
 void SceneManager::Update(double dt)

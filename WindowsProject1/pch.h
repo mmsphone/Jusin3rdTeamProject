@@ -2,6 +2,7 @@
 #ifndef PCH_H // PCH
 #define PCH_H
 
+#define WIN32_LEAN_AND_MEAN
 #define NOMINMAX 
 #include <Windows.h> //window
 #include "Math.h"
@@ -33,7 +34,6 @@
 
 #include <d3d9.h> // DirectX
 #include <d3dx9.h>
-
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 

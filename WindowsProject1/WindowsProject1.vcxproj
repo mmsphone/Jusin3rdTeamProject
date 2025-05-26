@@ -141,12 +141,18 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="GameScene2.h" />
+    <ClInclude Include="GameScene3.h" />
+    <ClInclude Include="GameScene4.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="MenuScene.h" />
     <ClInclude Include="ObjectComponent.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GameScene1.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="pch.h" />
@@ -155,16 +161,23 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GameScene1.cpp" />
+    <ClCompile Include="GameScene2.cpp" />
+    <ClCompile Include="GameScene3.cpp" />
+    <ClCompile Include="GameScene4.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectComponent.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
@@ -178,6 +191,9 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="TextureManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
