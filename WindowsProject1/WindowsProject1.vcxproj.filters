@@ -67,6 +67,12 @@
     <Filter Include="04. Object\Enemy\Boss">
       <UniqueIdentifier>{838b5358-e320-49b0-922e-394e4eaf0542}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.Singleton">
+      <UniqueIdentifier>{c4ec4a9b-06d4-47b5-8c39-cca92f68a431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.Singleton\Random">
+      <UniqueIdentifier>{d5fb7c30-0cf8-4527-86bd-92392d17110e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -117,6 +123,9 @@
     <ClInclude Include="Boss.h">
       <Filter>04. Object\Enemy\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>06.Singleton\Random</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -166,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>04. Object\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>06.Singleton\Random</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
