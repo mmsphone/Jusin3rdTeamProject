@@ -109,6 +109,9 @@
     <Filter Include="02. Scene\GameScene4">
       <UniqueIdentifier>{e27426b6-3141-46be-ae63-0959b1476526}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Object Component\Animation">
+      <UniqueIdentifier>{6add8664-76c7-4b65-9334-e5fb46a59f47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="GameScene4.h">
       <Filter>02. Scene\GameScene4</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>05. Object Component\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -262,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="GameScene4.cpp">
       <Filter>02. Scene\GameScene4</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>05. Object Component\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
