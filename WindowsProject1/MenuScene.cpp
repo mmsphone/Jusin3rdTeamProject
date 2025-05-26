@@ -15,15 +15,24 @@ void MenuScene::Unload() {
 
 void MenuScene::Update(double dt) {
     objectManager->Update(dt);
+
+    // ✅ 버튼 전환은 Update 이후에 안전하게 수행
+    if (bSwitchToSelectMenu) {
+        bSwitchToSelectMenu = false;
+        CreateGameSelectMenu();
+    }
 }
 
 void MenuScene::CreateMainMenu() {
     eMenuState = MenuState::MAIN;
-    objectManager->Initialize(); // 버튼 리셋
+    objectManager->Initialize(); // 기존 UI 전부 제거
 
     auto startBtn = std::make_shared<ButtonObject>(
         objectManager.get(), L"START",
-        [this]() { CreateGameSelectMenu(); }
+        [this]() {
+            // ✅ 즉시 호출 대신 플래그로 전환 예약
+            bSwitchToSelectMenu = true;
+        }
     );
     auto tfStart = startBtn->AddComponent<TransformComponent>();
     tfStart->SetPosition(400, 350);
@@ -42,8 +51,7 @@ void MenuScene::CreateMainMenu() {
 
 void MenuScene::CreateGameSelectMenu() {
     eMenuState = MenuState::SELECT;
-
-    //objectManager->ClearObjectList(ObjectType::UI);
+    objectManager->ClearObjectList(ObjectType::UI); // 기존 UI 제거
 
     const std::vector<std::wstring> gameNames = { L"Game1", L"Game2", L"Game3", L"Game4" };
     int startY = 280;
@@ -65,9 +73,8 @@ void MenuScene::CreateGameSelectMenu() {
     }
 }
 
-
 void MenuScene::Render(HDC hdc) {
-    // 타이틀
+    // 타이틀 출력
     SetBkMode(hdc, TRANSPARENT);
     HFONT hFont = CreateFontW(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
         HANGEUL_CHARSET, OUT_TT_ONLY_PRECIS, CLIP_DEFAULT_PRECIS,

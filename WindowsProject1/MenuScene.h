@@ -12,8 +12,9 @@ private:
     enum class MenuState {
         MAIN,
         SELECT
-    } 
-    eMenuState = MenuState::MAIN;
+    } eMenuState = MenuState::MAIN;
+
+    bool bSwitchToSelectMenu = false;
 
     void CreateMainMenu();
     void CreateGameSelectMenu();
