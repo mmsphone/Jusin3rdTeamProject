@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include "ObjectComponent.h"
 
 class TransformComponent : public ObjectComponent {
 public:
     D3DXVECTOR3 vPosition{ 0.0f, 0.0f, 0.0f };
-    float fRotationZ = 0.0f;  // ¶óµğ¾È ´ÜÀ§
+    float fRotationZ = 0.0f;  // ë¼ë””ì•ˆ ë‹¨ìœ„
     D3DXVECTOR3 vScale{ 1.0f, 1.0f, 1.0f };
 
 private:

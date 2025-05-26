@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Scene.h"
 #include "GameScene.h"
 #include "ObjectManager.h"
@@ -23,5 +23,5 @@ void GameScene::Render(HDC hdc)
 	objectManager->Render(hdc);
 }
 
-void GameScene::Unload() 
+void GameScene::Unload()
 {}

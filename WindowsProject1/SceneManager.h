@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 class Scene;
 class SceneManager
 {
@@ -12,5 +12,4 @@ public:
 public:
 	std::shared_ptr<Scene> activeScene;
     std::unordered_map<std::string, std::shared_ptr<Scene>> scenes;
-
 };

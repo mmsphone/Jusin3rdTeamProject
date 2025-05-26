@@ -73,8 +73,8 @@
     <Filter Include="06.Singleton\Random">
       <UniqueIdentifier>{d5fb7c30-0cf8-4527-86bd-92392d17110e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06.Singleton\SoundManager">
-      <UniqueIdentifier>{a1042fc3-365f-4148-8b04-0aaf7e56e03f}</UniqueIdentifier>
+    <Filter Include="01. Engine Component\Sound Manager">
+      <UniqueIdentifier>{7cb14457-1394-4e75-92f3-72eccbf4bd10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,7 @@
       <Filter>06.Singleton\Random</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
-      <Filter>06.Singleton\SoundManager</Filter>
+      <Filter>01. Engine Component\Sound Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +186,7 @@
       <Filter>06.Singleton\Random</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
-      <Filter>06.Singleton\SoundManager</Filter>
+      <Filter>01. Engine Component\Sound Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

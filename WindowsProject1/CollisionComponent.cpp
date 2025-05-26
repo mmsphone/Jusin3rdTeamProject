@@ -1,17 +1,19 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CollisionComponent.h"
 #include "TransformComponent.h"
 #include "Object.h"
 
 
-void CollisionComponent::Initialize()
-{
+void CollisionComponent::Initialize() {
     auto transform = owner ? owner->GetComponent<TransformComponent>() : nullptr;
     if (transform) {
-        size.x *= transform->GetScale().x;
-        size.y *= transform->GetScale().y;
-        offset.x *= transform->GetScale().x;
-        offset.y *= transform->GetScale().y;
+        static const D3DXVECTOR3 baseSize = size;
+        static const D3DXVECTOR3 baseOffset = offset;
+
+        size.x = baseSize.x * transform->GetScale().x;
+        size.y = baseSize.y * transform->GetScale().y;
+        offset.x = baseOffset.x * transform->GetScale().x;
+        offset.y = baseOffset.y * transform->GetScale().y;
     }
 }
 
@@ -23,15 +25,16 @@ D3DXVECTOR3 CollisionComponent::GetWorldPosition() const {
 }
 
 bool CollisionComponent::CheckCollision(const CollisionComponent* other) const {
-    if (this->owner == other->owner) return false;
-    auto transform = owner->GetComponent<TransformComponent>();
-    auto otherTransform = other->owner->GetComponent<TransformComponent>();
+    if (!other || other == this) return false;
+
+    auto transform = owner ? owner->GetComponent<TransformComponent>() : nullptr;
+    auto otherTransform = other->owner ? other->owner->GetComponent<TransformComponent>() : nullptr;
     if (!transform || !otherTransform) return false;
 
-    D3DXVECTOR3 aCenter = this->GetWorldPosition();
+    D3DXVECTOR3 aCenter = GetWorldPosition();
     D3DXVECTOR3 bCenter = other->GetWorldPosition();
 
-    D3DXVECTOR3 aHalf = this->size * 0.5f;
+    D3DXVECTOR3 aHalf = size * 0.5f;
     D3DXVECTOR3 bHalf = other->size * 0.5f;
 
     float dx = std::abs(aCenter.x - bCenter.x);

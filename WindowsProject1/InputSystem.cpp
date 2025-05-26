@@ -1,4 +1,4 @@
-// InputSystem.cpp
+﻿// InputSystem.cpp
 #include "pch.h"
 #include "InputSystem.h"
 #include "Engine.h"
@@ -16,10 +16,6 @@ void InputSystem::OnKeyUp(WPARAM key) {
     if (key < KEY_COUNT) {
         keyDown[key] = false;
     }
-}
-void InputSystem::OnMouseMove(int x, int y)
-{
-    mousePos = { (float)x, (float)y, 0 };
 }
 
 void InputSystem::OnMouseDown()
@@ -41,11 +37,11 @@ bool InputSystem::IsKeyDown(WPARAM key) const {
 }
 
 bool InputSystem::IsKeyPressed(WPARAM key) const {
-    return isKeyWork && keyDown[key] && !wasKeyDown[key];
+    return isKeyWork && key < KEY_COUNT && keyDown[key] && !wasKeyDown[key];
 }
 
 bool InputSystem::IsKeyReleased(WPARAM key) const {
-    return isKeyWork && !keyDown[key] && wasKeyDown[key];
+    return isKeyWork && key < KEY_COUNT && !keyDown[key] && wasKeyDown[key];
 }
 bool InputSystem::IsMouseDown() const {
     return isMouseWork && mouseDown;

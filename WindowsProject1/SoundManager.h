@@ -2,6 +2,8 @@
 
 class SoundManager {
 public:
+    SoundManager() noexcept = default;
+    ~SoundManager();
     SoundManager(const SoundManager&) = delete;
     SoundManager& operator=(const SoundManager&) = delete;
     SoundManager(SoundManager&&) = delete;
@@ -16,9 +18,6 @@ public:
     void Release();
 
 private:
-    SoundManager() noexcept = default;
-    ~SoundManager();
-
     FMOD::System* system = nullptr;
     std::unordered_map<std::wstring, FMOD::Sound*> mapSound;
     std::unordered_map<std::wstring, FMOD::Channel*> mapChannel;

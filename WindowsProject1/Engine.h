@@ -11,6 +11,7 @@ public:
 	void Run();
 	void Shutdown();
 	InputSystem* GetInputSystem();
+	SoundManager* GetSoundManager();
 	HWND GethWnd();
 
 	RECT GetWindowSize();

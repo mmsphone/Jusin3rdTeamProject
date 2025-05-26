@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "GameScene.h"
@@ -6,8 +6,7 @@
 void SceneManager::Initialize()
 {
 	AddScene("Game", std::make_shared<GameScene>());
-	activeScene = scenes["Game"];
-	activeScene->Load();
+	SetActiveScene("Game");
 }
 
 void SceneManager::Update(double dt)
@@ -29,5 +28,6 @@ void SceneManager::SetActiveScene(const std::string& name) {
     auto it = scenes.find(name);
     if (it != scenes.end()) {
         activeScene = it->second;
+		activeScene->Load();
     }
 }

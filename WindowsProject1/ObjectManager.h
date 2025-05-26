@@ -1,4 +1,4 @@
-#pragma once
+癤�#pragma once
 
 class Object;
 class ObjectManager
@@ -16,5 +16,3 @@ private:
 	std::vector<std::list<std::shared_ptr<Object>>> objects;
 	std::vector<std::vector<std::list<std::shared_ptr<Object>>::iterator>> deadObjects;
 };
-
-//{사각형} {} {플레이어} {적1, 적2, ...} [총알들} {} {} {}

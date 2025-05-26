@@ -1,10 +1,9 @@
-#pragma once
+﻿#pragma once
 class InputSystem {
 public:
     InputSystem();
     void OnKeyDown(WPARAM key);
     void OnKeyUp(WPARAM key);
-    void OnMouseMove(int x, int y);
     void OnMouseDown();
     void OnMouseUp();
     void Tick();
