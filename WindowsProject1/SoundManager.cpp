@@ -1,7 +1,8 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "SoundManager.h"
 
 void SoundManager::Initialize() {
+    if (system) return;
     FMOD::System_Create(&system);
     system->init(512, FMOD_INIT_NORMAL, 0);
 }
@@ -30,18 +31,18 @@ void SoundManager::InsertSound(const std::wstring& filePath, const std::wstring&
 
     if (system->createSound(filePathUtf8.c_str(), mode, nullptr, &sound) == FMOD_OK) {
         mapSound[key] = sound;
-        std::wcout << L"»ç¿îµå »ğÀÔ ¿Ï·á: " << key << std::endl;
+        std::wcout << L"ì‚¬ìš´ë“œ ì‚½ì… ì™„ë£Œ: " << key << std::endl;
     }
     else {
-        std::wcout << L"»ç¿îµå ·Îµå ½ÇÆĞ: " << filePath << std::endl;
+        std::wcout << L"ì‚¬ìš´ë“œ ë¡œë“œ ì‹¤íŒ¨: " << filePath << std::endl;
     }
 }
 
 void SoundManager::PlaySound(const std::wstring& key, float volume) {
-    std::wcout << L"PlaySound È£ÃâµÈ Å°: " << key << std::endl;
+    std::wcout << L"PlaySound í˜¸ì¶œëœ í‚¤: " << key << std::endl;
     auto it = mapSound.find(key);
     if (it == mapSound.end()) {
-        std::wcout << L"»ç¿îµå Å° ¾øÀ½: " << key << std::endl;
+        std::wcout << L"ì‚¬ìš´ë“œ í‚¤ ì—†ìŒ: " << key << std::endl;
         return;
     }
 
@@ -73,11 +74,11 @@ void SoundManager::SetVolume(const std::wstring& key, float volume)
         FMOD::Channel* channel = it->second;
         if (channel) {
             channel->setVolume(volume);
-            std::wcout << L"º¼·ı ¼³Á¤ ¿Ï·á: " << key << L" -> " << volume << std::endl;
+            std::wcout << L"ë³¼ë¥¨ ì„¤ì • ì™„ë£Œ: " << key << L" -> " << volume << std::endl;
         }
     }
     else {
-        std::wcerr << L"Ã¤³Î Ã£±â ½ÇÆĞ: " << key << std::endl;
+        std::wcerr << L"ì±„ë„ ì°¾ê¸° ì‹¤íŒ¨: " << key << std::endl;
     }
 }
 
@@ -85,14 +86,14 @@ void SoundManager::Update() {
     if (system) {
         system->update();
 
-        // Ã¤³ÎÀÌ Àç»ı ÁßÀÎÁö È®ÀÎÇÏ°í, Á¾·áµÈ Ã¤³ÎÀ» mapChannel¿¡¼­ Á¦°Å
+        // ì±„ë„ì´ ì¬ìƒ ì¤‘ì¸ì§€ í™•ì¸í•˜ê³ , ì¢…ë£Œëœ ì±„ë„ì„ mapChannelì—ì„œ ì œê±°
         for (auto it = mapChannel.begin(); it != mapChannel.end(); ) {
             bool isPlaying = false;
             it->second->isPlaying(&isPlaying);
 
             if (!isPlaying) {
-                // »ç¿îµå°¡ ³¡³ª¸é Ã¤³Î ºñ¿ì±â
-                it = mapChannel.erase(it); // Ã¤³Î Á¦°Å ÈÄ, it¸¦ ÇÑ Ä­ µÚ·Î ÀÌµ¿
+                // ì‚¬ìš´ë“œê°€ ëë‚˜ë©´ ì±„ë„ ë¹„ìš°ê¸°
+                it = mapChannel.erase(it); // ì±„ë„ ì œê±° í›„, itë¥¼ í•œ ì¹¸ ë’¤ë¡œ ì´ë™
             }
             else {
                 ++it;

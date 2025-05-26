@@ -1,12 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
 class SoundManager {
 public:
-    static SoundManager& GetInstance() {
-        static SoundManager instance;
-        return instance;
-    }
-
     SoundManager(const SoundManager&) = delete;
     SoundManager& operator=(const SoundManager&) = delete;
     SoundManager(SoundManager&&) = delete;
@@ -28,5 +23,5 @@ private:
     std::unordered_map<std::wstring, FMOD::Sound*> mapSound;
     std::unordered_map<std::wstring, FMOD::Channel*> mapChannel;
 
-    std::string WStringToString(const std::wstring& wstr); // À¯´ÏÄÚµå º¯È¯ ÇÔ¼ö
+    std::string WStringToString(const std::wstring& wstr); // ìœ ë‹ˆì½”ë“œ ë³€í™˜ í•¨ìˆ˜
 };
