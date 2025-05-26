@@ -73,6 +73,9 @@
     <Filter Include="06.Singleton\Random">
       <UniqueIdentifier>{d5fb7c30-0cf8-4527-86bd-92392d17110e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.Singleton\SoundManager">
+      <UniqueIdentifier>{a1042fc3-365f-4148-8b04-0aaf7e56e03f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -126,6 +129,9 @@
     <ClInclude Include="Random.h">
       <Filter>06.Singleton\Random</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>06.Singleton\SoundManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -178,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>06.Singleton\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>06.Singleton\SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
