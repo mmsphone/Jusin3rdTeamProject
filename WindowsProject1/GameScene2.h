@@ -10,5 +10,8 @@ class GameScene2 :
 
 private:
 	int iTest1;
+	int iTest2;
+
+
 };
 
