@@ -109,6 +109,9 @@
     <Filter Include="04. Object\06.Cursor">
       <UniqueIdentifier>{d3e4d672-f2db-48b3-a90a-8d46d1dabefd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\00.Neutral\BigWheel_Yu">
+      <UniqueIdentifier>{c0b2ab6a-fc2a-4668-92cf-aec1d645cde2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="AnimationComponent.h">
       <Filter>05. Object Component\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="BigWheel.h">
+      <Filter>04. Object\00.Neutral\BigWheel_Yu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -262,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>05. Object Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="BigWheel.cpp">
+      <Filter>04. Object\00.Neutral\BigWheel_Yu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

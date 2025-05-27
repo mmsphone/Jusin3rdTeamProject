@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BigWheel.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CollisionComponent.h" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BigWheel.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />

@@ -11,5 +11,4 @@ private:
 
 	double mainTimer = 0.;
 
-	int iTest;
 };
