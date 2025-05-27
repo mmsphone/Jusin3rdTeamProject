@@ -43,9 +43,9 @@ void Player::KeyInput(double dt)
         transform->Translate(speed * static_cast<float>(dt), 0);
     }
     if (input->IsKeyDown('Q')) {
-        transform->SetRotationZ(-3.f);
+        transform->SetRotationZ(transform->GetRotationZ() - D3DXToRadian(3.f));
     }
     if (input->IsKeyDown('E')) {
-        transform->SetRotationZ(3.f);
+        transform->SetRotationZ(transform->GetRotationZ() + D3DXToRadian(3.f));
     }
 }

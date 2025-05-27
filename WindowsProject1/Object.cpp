@@ -22,21 +22,48 @@ void Object::Render(HDC hdc)
 
 	D3DXVECTOR3 pos = transform->GetPosition();
 	D3DXVECTOR3 scale = transform->GetScale();
+	float rotateZ = transform->GetRotationZ();
 
-	int halfWidth = static_cast<int>(scale.x * 0.5f);
-	int halfHeight = static_cast<int>(scale.y * 0.5f);
-	int x = static_cast<int>(pos.x);
-	int y = static_cast<int>(pos.y);
+	float halfW = scale.x * 0.5f;
+	float halfH = scale.y * 0.5f;
+	int cx = static_cast<int>(pos.x);
+	int cy = static_cast<int>(pos.y);
 
-	switch (type)
-	{
-	case RenderType::Rect:
-		Rectangle(hdc, x - halfWidth, y - halfHeight, x + halfWidth, y + halfHeight);
-		break;
+	if (type == RenderType::Rect) {
+		// 꼭짓점 기준 좌표 (중심 기준)
+		POINT points[4];
 
-	case RenderType::Ellipse:
-		Ellipse(hdc, x - halfWidth, y - halfHeight, x + halfWidth, y + halfHeight);
-		break;
+		float cosTheta = cosf(rotateZ);
+		float sinTheta = sinf(rotateZ);
+
+		D3DXVECTOR3 localCorners[4] = {
+			{ -halfW, -halfH, 0 }, // LT
+			{  halfW, -halfH, 0 }, // RT
+			{  halfW,  halfH, 0 }, // RB
+			{ -halfW,  halfH, 0 }  // LB
+		};
+
+		for (int i = 0; i < 4; ++i) {
+			float x = localCorners[i].x;
+			float y = localCorners[i].y;
+
+			// 회전 적용
+			float rx = x * cosTheta - y * sinTheta;
+			float ry = x * sinTheta + y * cosTheta;
+
+			points[i].x = static_cast<LONG>(cx + rx);
+			points[i].y = static_cast<LONG>(cy + ry);
+		}
+
+		// 선으로 사각형 그리기
+		MoveToEx(hdc, points[0].x, points[0].y, nullptr);
+		for (int i = 1; i < 4; ++i) {
+			LineTo(hdc, points[i].x, points[i].y);
+		}
+		LineTo(hdc, points[0].x, points[0].y); // 닫기
+	}
+	else if (type == RenderType::Ellipse) {
+		Ellipse(hdc, cx - halfW, cy - halfH, cx + halfW, cy + halfH);
 	}
 }
 
