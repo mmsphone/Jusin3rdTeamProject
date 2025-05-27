@@ -8,10 +8,5 @@ class GameScene2 :
 	virtual void Render(HDC hdc);
 	virtual void Unload();
 
-private:
-	int iTest1;
-	int iTest2;
-
-
 };
 
