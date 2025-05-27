@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 
 CardDeck::CardDeck(ObjectManager* pOwner)
-    : Object(pOwner, ObjectType::UI) {
+    : Object(pOwner, ObjectType::Back) {
     AddComponent<TransformComponent>();
 }
 

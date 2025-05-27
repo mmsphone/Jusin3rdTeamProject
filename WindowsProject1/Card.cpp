@@ -64,13 +64,23 @@ void Card::Render(HDC hdc) {
 	Object::Render(hdc); // 사각형 출력 (점 4개)
 
 	auto pTransform = GetComponent<TransformComponent>();
-	if (!pTransform) return; // TransformComponent가 없으면 출력하지 않음
+	if (!pTransform) return;
 
 	D3DXVECTOR3 vPos = pTransform->GetPosition();
 
 	std::string strCode = GetCardCode();
 	int iTextLen = static_cast<int>(strCode.length());
 
-	TextOutA(hdc, static_cast<int>(vPos.x) - 10, static_cast<int>(vPos.y) - 10,
+	// 🔷 글자 출력 전 배경 지우기
+	RECT textRect = {
+		(int)(vPos.x - 15),
+		(int)(vPos.y - 15),
+		(int)(vPos.x + 15),
+		(int)(vPos.y + 5)
+	};
+	FillRect(hdc, &textRect, (HBRUSH)(COLOR_WINDOW + 1)); // 시스템 배경색
+
+	// 🔷 텍스트 출력
+	TextOutA(hdc, (int)(vPos.x) - 10, (int)(vPos.y) - 10,
 		strCode.c_str(), iTextLen);
 }
