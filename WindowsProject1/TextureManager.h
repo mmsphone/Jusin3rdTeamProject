@@ -10,7 +10,7 @@ public:
     TextureManager(TextureManager&&) = delete;
     TextureManager& operator=(TextureManager&&) = delete;
 
-    void InsertTexture(const std::wstring& filePath, const std::wstring& key, int width, int height);
+    void InsertTexture(const std::wstring& filePath, const std::wstring& key, float width, float height);
     HDC FindTexture(const std::wstring& key) const;
     D3DXVECTOR3 GetTextureSize(const std::wstring& key) const;
     void Release();

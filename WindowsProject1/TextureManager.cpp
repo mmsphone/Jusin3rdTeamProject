@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "TextureManager.h"
 
-void TextureManager::InsertTexture(const std::wstring& filePath, const std::wstring& key, int width, int height) {
+void TextureManager::InsertTexture(const std::wstring& filePath, const std::wstring& key, float width, float height) {
     if (textureMap.find(key) != textureMap.end())
         return;
 
