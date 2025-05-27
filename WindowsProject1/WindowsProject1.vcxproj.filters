@@ -109,6 +109,15 @@
     <Filter Include="04. Object\06.Cursor">
       <UniqueIdentifier>{d3e4d672-f2db-48b3-a90a-8d46d1dabefd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\02.Mid\Card">
+      <UniqueIdentifier>{7ecb0d78-ba2a-4f74-8575-ba10ed493260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Mid\Player">
+      <UniqueIdentifier>{b130b061-7040-4411-840f-6811fadb4a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\01.Back\CardDeck">
+      <UniqueIdentifier>{fdc11444-d289-490c-952e-718eeae64282}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -168,9 +177,6 @@
     <ClInclude Include="ButtonObject.h">
       <Filter>04. Object\05.UI\Button</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>04. Object\02.Mid</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>04. Object\04.Effect</Filter>
     </ClInclude>
@@ -185,6 +191,15 @@
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
       <Filter>05. Object Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>04. Object\02.Mid\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>04. Object\02.Mid\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CardDeck.h">
+      <Filter>04. Object\01.Back\CardDeck</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,9 +260,6 @@
     <ClCompile Include="ButtonObject.cpp">
       <Filter>04. Object\05.UI\Button</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>04. Object\02.Mid</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>04. Object\04.Effect</Filter>
     </ClCompile>
@@ -262,6 +274,15 @@
     </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>05. Object Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>04. Object\02.Mid\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>04. Object\02.Mid\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CardDeck.cpp">
+      <Filter>04. Object\01.Back\CardDeck</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

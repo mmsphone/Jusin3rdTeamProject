@@ -142,6 +142,8 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="CardDeck.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene2.h" />
@@ -169,6 +171,8 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardDeck.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Engine.cpp" />
