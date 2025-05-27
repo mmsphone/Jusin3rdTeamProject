@@ -12,4 +12,5 @@ private:
 	double mainTimer = 0.;
 
 	int iNumber;
+	bool bTest;
 };
