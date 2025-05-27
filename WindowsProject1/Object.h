@@ -9,6 +9,7 @@ protected:
     ObjectManager* owner;
     bool isDead;
     RenderType type;
+    std::string tag = "none";
 public:
     Object(ObjectManager*, ObjectType, RenderType type = RenderType::Rect);
     virtual void Update(double dt);
@@ -16,6 +17,8 @@ public:
     void SetDead() { isDead = true; };
     bool IsDead() const { return isDead; }
     ObjectManager* GetOwner() { return owner; };
+    void SetTag(const std::string& s) { tag = s; }
+    const std::string& GetTag() const { return tag; }
 public:
     template<typename T, typename... Args>
     T* AddComponent(Args&&... args) {
