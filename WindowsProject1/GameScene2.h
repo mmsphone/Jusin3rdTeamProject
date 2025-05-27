@@ -7,5 +7,8 @@ class GameScene2 :
 	virtual void Update(double dt);
 	virtual void Render(HDC hdc);
 	virtual void Unload();
+
+private:
+	int iTest1;
 };
 
