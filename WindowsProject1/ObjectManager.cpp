@@ -48,6 +48,16 @@ void ObjectManager::RemoveObject(ObjectType type, std::shared_ptr<Object> object
 	objectList.remove(object);
 }
 
+std::shared_ptr<Object> ObjectManager::FindByTag(const std::string& tag) {
+	for (auto& objList : objects) {
+		for (auto& obj : objList) {
+			if (obj->GetTag() == tag)
+				return obj;
+		}
+	}
+	return nullptr;
+}
+
 std::shared_ptr<Object> ObjectManager::GetFrontObject(ObjectType type)
 {
 	return objects[static_cast<int>(type)].empty() ? nullptr : objects[static_cast<int>(type)].front();
