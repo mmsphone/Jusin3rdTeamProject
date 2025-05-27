@@ -38,7 +38,6 @@
 #pragma comment(lib, "d3dx9.lib")
 
 #ifdef _DEBUG
-
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h> // Debug
 #include <crtdbg.h>
@@ -49,8 +48,6 @@
 
 #endif
 #endif
-
-
 #endif
 
 //enum
