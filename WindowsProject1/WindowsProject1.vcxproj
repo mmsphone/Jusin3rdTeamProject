@@ -141,7 +141,6 @@
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Boss.h" />
-    <ClInclude Include="Bullet.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Effect.h" />
@@ -169,7 +168,6 @@
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Effect.cpp" />
