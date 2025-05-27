@@ -59,7 +59,6 @@ void Boss::BossAttack1::Enter(Object* owner)
 void Boss::BossAttack1::Update(Object* owner, double dt)
 {
 	timer += dt;
-	}
 }
 
 void Boss::BossAttack1::TestForExit(Object* owner)
