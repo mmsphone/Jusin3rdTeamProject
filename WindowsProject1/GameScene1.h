@@ -10,4 +10,5 @@ private:
 	double count = 0.;
 
 	double mainTimer = 0.;
+	int i;
 };
