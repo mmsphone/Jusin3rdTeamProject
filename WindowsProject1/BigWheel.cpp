@@ -12,8 +12,8 @@ BigWheel::BigWheel(ObjectManager*, ObjectType obType)
 	:Object(owner, objType, RenderType::Rect)
 {
 	auto transform = AddComponent<TransformComponent>();
-	transform->SetPosition(400.0f, 100.0f);
-	transform->SetScale(200.0f, 200.0f);
+	transform->SetPosition(400.0f, 200.0f);
+	transform->SetScale(20.0f, 200.0f);
 
 
 }
@@ -53,17 +53,24 @@ void BigWheel::KeyInput(double dt)
 
 void BigWheel::Spin(double dt)
 {
-	CurVal = Lerp(CurVal, (double)0, float(dAngleSpeed * dt));
-
+	//CurVal = Lerp(CurVal, (double)0, float(dAngleSpeed * dt));
+	elapsed += dt;
+	float currentSpeed = initialSpeed * std::exp(-decayRate * elapsed);
 	auto transform = GetComponent<TransformComponent>();
-	transform->RotateZ(-CurVal);
+	transform->RotateZ(currentSpeed);
+
+
+	rotationAngle += currentSpeed * dt;
+
+	if (currentSpeed < MIN_SPEED) {
+		bSpin = false;
+		elapsed = 0.0f;
+	}
+
 
 
 	
-	if (CurVal <= 0.01f) {
-		bSpin = false;
-		CurVal = 100;
-	}
+	
 }
 
 void BigWheel::Make_Grid()
