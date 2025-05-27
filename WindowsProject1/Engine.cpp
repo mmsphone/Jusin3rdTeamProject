@@ -1,7 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Engine.h"
 #include "SceneManager.h"
 #include "InputSystem.h"
+#include "SoundManager.h"
+#include "TextureManager.h"
 Engine& Engine::GetInstance()
 {
 	static Engine instance;
@@ -10,7 +12,7 @@ Engine& Engine::GetInstance()
 
 bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
 {
-    hInstance = hInstance;
+    this->hInstance = hInstance;
     msg.message = WM_NULL;
 
     if (!InitWindow(hInstance, nCmdShow))
@@ -19,6 +21,11 @@ bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
     sceneManager = std::make_unique<SceneManager>();
     sceneManager->Initialize();
     inputSystem = std::make_unique<InputSystem>();
+
+    soundManager = std::make_unique<SoundManager>();
+    soundManager->Initialize();
+
+    textureManager = std::make_unique<TextureManager>();
 
     return true;
 }
@@ -57,11 +64,22 @@ void Engine::Run()
 
 void Engine::Shutdown()
 {
+    DestroyWindow(hWnd);
 }
 
 InputSystem* Engine::GetInputSystem()
 {
     return inputSystem.get();
+}
+
+SoundManager* Engine::GetSoundManager()
+{
+    return soundManager.get();
+}
+
+TextureManager* Engine::GetTextureManager()
+{
+    return textureManager.get();
 }
 
 HWND Engine::GethWnd()
@@ -117,35 +135,32 @@ bool Engine::InitWindow(HINSTANCE hInstance, int nCmdShow)
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
-    SetTimer(hWnd, 1, 10, nullptr);
     return true;
 }
 
 LRESULT CALLBACK Engine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    auto input = Engine::GetInstance().GetInputSystem();
     switch (message)
     {
     case WM_KEYDOWN:
-        Engine::GetInstance().GetInputSystem()->OnKeyDown(wParam);
+        input->OnKeyDown(wParam);
         break;
 
     case WM_KEYUP:
-        Engine::GetInstance().GetInputSystem()->OnKeyUp(wParam);
+        input->OnKeyUp(wParam);
         break;
 
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
-    case WM_MOUSEMOVE:
-        Engine::GetInstance().GetInputSystem()->OnMouseMove(LOWORD(lParam), HIWORD(lParam));
-        break;
 
     case WM_LBUTTONDOWN:
-        Engine::GetInstance().GetInputSystem()->OnMouseDown();
+        input->OnMouseDown();
         break;
 
     case WM_LBUTTONUP:
-        Engine::GetInstance().GetInputSystem()->OnMouseUp();
+        input->OnMouseUp();
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
@@ -173,7 +188,6 @@ void Engine::Render()
 
     SelectObject(memDC, oldBitmap);
     DeleteObject(memBitmap);
-    DeleteDC(memDC);
-
     ReleaseDC(hWnd, hdc);
+    DeleteDC(memDC);
 }

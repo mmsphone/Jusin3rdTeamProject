@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ObjectComponent.h"
 
 class ObjectManager;
@@ -14,7 +14,7 @@ public:
     virtual void Update(double dt);
     virtual void Render(HDC hdc);
     void SetDead() { isDead = true; };
-    bool IsDead() { return isDead; }
+    bool IsDead() const { return isDead; }
     ObjectManager* GetOwner() { return owner; };
 public:
     template<typename T, typename... Args>

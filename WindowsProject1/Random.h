@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <random>
 
 class Random
@@ -6,12 +6,14 @@ class Random
 private:
     std::mt19937 Random_gen;
 
-    // »ı¼ºÀÚ/¼Ò¸êÀÚ private
-    Random() = default;
+    // ìƒì„±ì/ì†Œë©¸ì private
+    Random() {
+        Initialize();
+    }
     ~Random() = default;
 
 public:
-    // º¹»ç ¹æÁö
+    // ë³µì‚¬ ë°©ì§€
     Random(const Random&) = delete;
     Random& operator=(const Random&) = delete;
 

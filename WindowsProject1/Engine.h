@@ -1,6 +1,8 @@
-#pragma once
+﻿#pragma once
 class SceneManager;
 class InputSystem;
+class SoundManager;
+class TextureManager;
 class Engine
 {
 public:
@@ -10,6 +12,8 @@ public:
 	void Run();
 	void Shutdown();
 	InputSystem* GetInputSystem();
+	SoundManager* GetSoundManager();
+	TextureManager* GetTextureManager();
 	HWND GethWnd();
 
 	RECT GetWindowSize();
@@ -31,10 +35,12 @@ private:
 
 private:
 	std::chrono::system_clock::time_point lastTick;
-	static constexpr double FramePurpose = 1 / 144.;
+	static constexpr double FramePurpose = 1. / 144.;
 
 public:
 	std::unique_ptr<SceneManager> sceneManager;
 	std::unique_ptr<InputSystem> inputSystem;
+	std::unique_ptr<SoundManager> soundManager;
+	std::unique_ptr<TextureManager> textureManager;
 };
 

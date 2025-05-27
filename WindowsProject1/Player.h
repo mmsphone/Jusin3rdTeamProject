@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Object.h"
 class Player : public Object
 {
@@ -7,4 +7,6 @@ public:
 	Player(ObjectManager*, ObjectType objType, double);
 
     virtual void Update(double dt);
+private:
+	void KeyInput(double dt);
 };

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Bullet.h"
 #include "TransformComponent.h"
 #include "CollisionComponent.h"
@@ -21,15 +21,19 @@ void Bullet::Render(HDC hdc)
 
 void Bullet::Update(double dt)
 {
-    //À§Ä¡ ¾÷µ¥ÀÌÆ®
+    //ìœ„ì¹˜ ì—…ë°ì´íŠ¸
     auto transform = GetComponent<TransformComponent>();
-    float currRotate = transform->GetRotation();
-    math::RotateMatrix rotMat(currRotate);
+    float currRotate = transform->GetRotationZ();
+    D3DXMATRIX rotMat;
+    D3DXMatrixRotationZ(&rotMat, currRotate);
     
-    math::vec2 velocity = rotMat * math::vec2(speed, speed) * dt;
+    D3DXVECTOR3 v = D3DXVECTOR3(speed, speed, 0);
+    D3DXVECTOR3 vRotated;
+    D3DXVec3TransformNormal(&vRotated, &v, &rotMat);
+    D3DXVECTOR3 velocity = vRotated * dt;
     transform->Translate(velocity.x, velocity.y);
 
-    //Ãæµ¹ ¾÷µ¥ÀÌÆ®
+    //ì¶©ëŒ ì—…ë°ì´íŠ¸
     auto collision = GetComponent<CollisionComponent>();
     
     bool backgroundCollisionCheck = collision->CheckCollision(owner->GetFrontObject(ObjectType::Neutral)->GetComponent<CollisionComponent>());

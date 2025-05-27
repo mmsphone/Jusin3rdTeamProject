@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Object.h"
 #include "ObjectManager.h"
 
@@ -42,6 +42,12 @@ void ObjectManager::AddObject(ObjectType type, std::shared_ptr<Object> object)
 	objects[static_cast<int>(type)].push_back(object);
 }
 
+void ObjectManager::RemoveObject(ObjectType type, std::shared_ptr<Object> object)
+{
+	auto& objectList = objects[static_cast<int>(type)];
+	objectList.remove(object);
+}
+
 std::shared_ptr<Object> ObjectManager::GetFrontObject(ObjectType type)
 {
 	return objects[static_cast<int>(type)].empty() ? nullptr : objects[static_cast<int>(type)].front();
@@ -50,6 +56,13 @@ std::shared_ptr<Object> ObjectManager::GetFrontObject(ObjectType type)
 std::list<std::shared_ptr<Object>> ObjectManager::GetObjectList(ObjectType type)
 {
 	return objects[static_cast<int>(type)];
+}
+
+void ObjectManager::ClearObjectList(ObjectType type)
+{
+	int index = static_cast<int>(type);
+	objects[index].clear();
+	deadObjects[index].clear();
 }
 
 void ObjectManager::CleanDeadObjects() {

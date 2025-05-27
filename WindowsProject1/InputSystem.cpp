@@ -1,9 +1,10 @@
-// InputSystem.cpp
+﻿// InputSystem.cpp
 #include "pch.h"
 #include "InputSystem.h"
 #include "Engine.h"
 
-InputSystem::InputSystem() : keyDown(KEY_COUNT, false), wasKeyDown(KEY_COUNT, false) {}
+InputSystem::InputSystem() : keyDown(KEY_COUNT, false), wasKeyDown(KEY_COUNT, false), mouseDown(false), wasMouseDown(false)
+{}
 
 void InputSystem::OnKeyDown(WPARAM key) {
     if (key < KEY_COUNT) {
@@ -15,10 +16,6 @@ void InputSystem::OnKeyUp(WPARAM key) {
     if (key < KEY_COUNT) {
         keyDown[key] = false;
     }
-}
-void InputSystem::OnMouseMove(int x, int y)
-{
-    mousePos = { x, y };
 }
 
 void InputSystem::OnMouseDown()
@@ -32,18 +29,19 @@ void InputSystem::OnMouseUp()
 }
 void InputSystem::Tick() {
     wasKeyDown = keyDown; // snapshot of previous frame
+    wasMouseDown = mouseDown;
 }
 
 bool InputSystem::IsKeyDown(WPARAM key) const {
-    return isKeyWork && keyDown[key];
+    return isKeyWork && key < KEY_COUNT&& keyDown[key];
 }
 
 bool InputSystem::IsKeyPressed(WPARAM key) const {
-    return isKeyWork && keyDown[key] && !wasKeyDown[key];
+    return isKeyWork && key < KEY_COUNT && keyDown[key] && !wasKeyDown[key];
 }
 
 bool InputSystem::IsKeyReleased(WPARAM key) const {
-    return isKeyWork && !keyDown[key] && wasKeyDown[key];
+    return isKeyWork && key < KEY_COUNT && !keyDown[key] && wasKeyDown[key];
 }
 bool InputSystem::IsMouseDown() const {
     return isMouseWork && mouseDown;
@@ -57,7 +55,7 @@ bool InputSystem::IsMouseReleased() const {
     return isMouseWork && !mouseDown && wasMouseDown;
 }
 
-math::vec2 InputSystem::GetMousePos()
+D3DXVECTOR3 InputSystem::GetMousePos()
 {
     POINT pt;
     GetCursorPos(&pt);

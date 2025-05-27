@@ -31,18 +31,6 @@
     <Filter Include="08. Miscellaneous\math">
       <UniqueIdentifier>{88076f13-bfce-48a9-9fb1-8a48840677ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Object\Player">
-      <UniqueIdentifier>{190fcdcd-e5fa-4010-aeb6-7300c3ad9534}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Object\Neutral">
-      <UniqueIdentifier>{cf2465a9-45f3-4bf6-b94c-bbb97537850a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Object\Enemy">
-      <UniqueIdentifier>{ed9ee5e9-8db6-4e7f-bc28-f6a965bfcf64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Object\Bullet">
-      <UniqueIdentifier>{04411866-457b-4a78-981d-59fa57202a93}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Object Component\Collision">
       <UniqueIdentifier>{a668d586-3f0f-4b73-95d8-602cc741837a}</UniqueIdentifier>
     </Filter>
@@ -58,20 +46,71 @@
     <Filter Include="02. Scene\Scene">
       <UniqueIdentifier>{6261aa58-38a4-4c36-abd1-41bca024568b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scene\GameScene">
-      <UniqueIdentifier>{f09ca9cc-323a-4eae-b856-a2a75169cb96}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Scene Component\Object Manager">
       <UniqueIdentifier>{b10205b3-b766-4699-bda1-f6fa7fb82163}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Object\Enemy\Boss">
-      <UniqueIdentifier>{838b5358-e320-49b0-922e-394e4eaf0542}</UniqueIdentifier>
     </Filter>
     <Filter Include="06.Singleton">
       <UniqueIdentifier>{c4ec4a9b-06d4-47b5-8c39-cca92f68a431}</UniqueIdentifier>
     </Filter>
     <Filter Include="06.Singleton\Random">
       <UniqueIdentifier>{d5fb7c30-0cf8-4527-86bd-92392d17110e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Engine Component\Sound Manager">
+      <UniqueIdentifier>{7cb14457-1394-4e75-92f3-72eccbf4bd10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Engine Component\Texture Manager">
+      <UniqueIdentifier>{3237cd7e-f950-4980-ba31-151ac91330a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\MenuScene">
+      <UniqueIdentifier>{24c5f27c-b16c-4110-91ea-b75437e575b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\00.Neutral">
+      <UniqueIdentifier>{fc6c021a-aeba-409e-8bff-5e393dd02ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\01.Alliance">
+      <UniqueIdentifier>{525a263d-569a-420a-b8f1-327bbd55a77d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Player">
+      <UniqueIdentifier>{41267529-21df-4efe-b5f9-55b2f616982b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\03.Enemy">
+      <UniqueIdentifier>{81ea824b-7925-462c-a0fd-e49de954c3fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\04.Bullet">
+      <UniqueIdentifier>{04411866-457b-4a78-981d-59fa57202a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05.Effect">
+      <UniqueIdentifier>{a4d7a666-bf31-4a3e-9c4b-ba060a3dc908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\06.UI">
+      <UniqueIdentifier>{3c49b3b0-cea7-4f3b-a1ca-f04eae0811f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\07.Cursor">
+      <UniqueIdentifier>{d3e4d672-f2db-48b3-a90a-8d46d1dabefd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\00.Neutral\Background">
+      <UniqueIdentifier>{95bf83e7-e2fb-4ab1-9297-bd67526d4ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\03.Enemy\Boss">
+      <UniqueIdentifier>{838b5358-e320-49b0-922e-394e4eaf0542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\06.UI\Button">
+      <UniqueIdentifier>{113a1d67-4f6a-4bf8-a4e3-f77dda8f77fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\GameScene1">
+      <UniqueIdentifier>{f09ca9cc-323a-4eae-b856-a2a75169cb96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\GameScene2">
+      <UniqueIdentifier>{fb07c913-c5ce-4128-adf8-eb1d99e18cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\GameScene3">
+      <UniqueIdentifier>{a0253fd7-2daf-4459-87f2-0b89e802e793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\GameScene4">
+      <UniqueIdentifier>{e27426b6-3141-46be-ae63-0959b1476526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Object Component\Animation">
+      <UniqueIdentifier>{6add8664-76c7-4b65-9334-e5fb46a59f47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,14 +129,8 @@
     <ClInclude Include="Math.h">
       <Filter>08. Miscellaneous\math</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>04. Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>04. Object\Neutral</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>04. Object\Bullet</Filter>
+      <Filter>04. Object\04.Bullet</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
       <Filter>05. Object Component\Collision</Filter>
@@ -108,8 +141,8 @@
     <ClInclude Include="InputSystem.h">
       <Filter>01. Engine Component\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>02. Scene\GameScene</Filter>
+    <ClInclude Include="GameScene1.h">
+      <Filter>02. Scene\GameScene1</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>02. Scene\Scene</Filter>
@@ -121,10 +154,43 @@
       <Filter>05. Object Component</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
-      <Filter>04. Object\Enemy\Boss</Filter>
+      <Filter>04. Object\03.Enemy\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>06.Singleton\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>01. Engine Component\Sound Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>01. Engine Component\Texture Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>02. Scene\MenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>04. Object\00.Neutral\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonObject.h">
+      <Filter>04. Object\06.UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>04. Object\02.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>04. Object\05.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene2.h">
+      <Filter>02. Scene\GameScene2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene3.h">
+      <Filter>02. Scene\GameScene3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene4.h">
+      <Filter>02. Scene\GameScene4</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>05. Object Component\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -143,14 +209,8 @@
     <ClCompile Include="Object.cpp">
       <Filter>04. Object</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>04. Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>04. Object\Neutral</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>04. Object\Bullet</Filter>
+      <Filter>04. Object\04.Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>05. Object Component\Collision</Filter>
@@ -164,8 +224,8 @@
     <ClCompile Include="Scene.cpp">
       <Filter>02. Scene\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>02. Scene\GameScene</Filter>
+    <ClCompile Include="GameScene1.cpp">
+      <Filter>02. Scene\GameScene1</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>03. Scene Component\Object Manager</Filter>
@@ -174,10 +234,43 @@
       <Filter>05. Object Component</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
-      <Filter>04. Object\Enemy\Boss</Filter>
+      <Filter>04. Object\03.Enemy\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>06.Singleton\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>01. Engine Component\Sound Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>01. Engine Component\Texture Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>02. Scene\MenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>04. Object\00.Neutral\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonObject.cpp">
+      <Filter>04. Object\06.UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>04. Object\02.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>04. Object\05.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene2.cpp">
+      <Filter>02. Scene\GameScene2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene3.cpp">
+      <Filter>02. Scene\GameScene3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene4.cpp">
+      <Filter>02. Scene\GameScene4</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>05. Object Component\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

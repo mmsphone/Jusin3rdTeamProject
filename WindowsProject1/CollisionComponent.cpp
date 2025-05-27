@@ -1,34 +1,41 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CollisionComponent.h"
 #include "TransformComponent.h"
 #include "Object.h"
 
 
-void CollisionComponent::Initialize()
-{
+void CollisionComponent::Initialize() {
     auto transform = owner ? owner->GetComponent<TransformComponent>() : nullptr;
     if (transform) {
-        size.x *= transform->scale.x;
-        size.y *= transform->scale.y;
+        static const D3DXVECTOR3 baseSize = size;
+        static const D3DXVECTOR3 baseOffset = offset;
+
+        size.x = baseSize.x * transform->GetScale().x;
+        size.y = baseSize.y * transform->GetScale().y;
+        offset.x = baseOffset.x * transform->GetScale().x;
+        offset.y = baseOffset.y * transform->GetScale().y;
     }
 }
 
-math::vec2 CollisionComponent::GetWorldPosition() const {
+D3DXVECTOR3 CollisionComponent::GetWorldPosition() const {
     auto transform = owner->GetComponent<TransformComponent>();
-    if (!transform) return { 0.0f, 0.0f };
+    if (!transform) return { 0.0f, 0.0f, 0.f };
 
-    return transform->position + offset;
+    return transform->GetPosition() + offset;
 }
 
 bool CollisionComponent::CheckCollision(const CollisionComponent* other) const {
-    auto transform = owner->GetComponent<TransformComponent>();
-    auto otherTransform = other->owner->GetComponent<TransformComponent>();
+    if (!other || other == this) return false;
 
-    math::vec2 aCenter = transform->GetPosition();
-    math::vec2 bCenter = otherTransform->GetPosition();
+    auto transform = owner ? owner->GetComponent<TransformComponent>() : nullptr;
+    auto otherTransform = other->owner ? other->owner->GetComponent<TransformComponent>() : nullptr;
+    if (!transform || !otherTransform) return false;
 
-    math::vec2 aHalf = this->size * 0.5f;
-    math::vec2 bHalf = other->size * 0.5f;
+    D3DXVECTOR3 aCenter = GetWorldPosition();
+    D3DXVECTOR3 bCenter = other->GetWorldPosition();
+
+    D3DXVECTOR3 aHalf = size * 0.5f;
+    D3DXVECTOR3 bHalf = other->size * 0.5f;
 
     float dx = std::abs(aCenter.x - bCenter.x);
     float dy = std::abs(aCenter.y - bCenter.y);
