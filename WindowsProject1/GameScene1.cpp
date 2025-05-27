@@ -9,8 +9,8 @@ void GameScene1::Load()
 {
 	Scene::Load();
 	objectManager->AddObject(ObjectType::Neutral, std::make_shared<Background>(objectManager.get(), ObjectType::Neutral));
-	objectManager->AddObject(ObjectType::Player, std::make_shared<Player>(objectManager.get(), ObjectType::Player, 100.));
-	objectManager->AddObject(ObjectType::Enemy, std::make_shared<Boss>(objectManager.get(), ObjectType::Enemy, 100.));
+	objectManager->AddObject(ObjectType::Mid, std::make_shared<Player>(objectManager.get(), ObjectType::Mid, 100.));
+	objectManager->AddObject(ObjectType::Front, std::make_shared<Boss>(objectManager.get(), ObjectType::Front, 100.));
 }
 
 void GameScene1::Update(double dt)

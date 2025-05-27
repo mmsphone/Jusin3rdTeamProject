@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 #include "Boss.h"
 #include "ObjectManager.h"
-#include "Bullet.h"
 #include "TransformComponent.h"
 #include "Engine.h"
 
@@ -60,21 +59,6 @@ void Boss::BossAttack1::Enter(Object* owner)
 void Boss::BossAttack1::Update(Object* owner, double dt)
 {
 	timer += dt;
-	if (timer > BULLET_COOLDOWN)
-	{
-		timer = 0.;
-		auto boss = dynamic_cast<Boss*>(owner);
-		auto bullet = std::make_shared<Bullet>(owner->GetOwner(), ObjectType::EBullet, 50.);
-		auto bulletTransform = bullet->AddComponent<TransformComponent>();
-		double rotate = startAngle + bulletNumber * 0.2;
-		D3DXVECTOR3 startPositionGap = { float(START_POS_OFFSET * cos(rotate) + START_POS_OFFSET * sin(rotate)), float(START_POS_OFFSET * cos(rotate) - START_POS_OFFSET * sin(rotate)), 0.f };
-
-		bulletTransform->SetPosition(startPos.x + startPositionGap.x, startPos.y + startPositionGap.y);
-		bulletTransform->SetScale(20., 20.);
-		bulletTransform->SetRotationZ(rotate);
-		boss->GetOwner()->AddObject(ObjectType::EBullet, bullet);
-		bulletNumber++;
-	}
 }
 
 void Boss::BossAttack1::TestForExit(Object* owner)
@@ -91,32 +75,13 @@ void Boss::BossAttack2::Enter(Object* owner)
 	timer = 0.;
 	bulletNumber = 0;
 	startPos = owner->GetComponent<TransformComponent>()->GetPosition();
-	auto playerPosition = owner->GetOwner()->GetFrontObject(ObjectType::Player)->GetComponent<TransformComponent>()->GetPosition();
+	auto playerPosition = owner->GetOwner()->GetFrontObject(ObjectType::Mid)->GetComponent<TransformComponent>()->GetPosition();
 	angle = std::atan2(-(playerPosition.y - startPos.y), playerPosition.x - startPos.x) - PI / 3;
 }
 
 void Boss::BossAttack2::Update(Object* owner, double dt)
 {
 	timer += dt;
-	if (timer > BULLET_COOLDOWN)
-	{
-		timer = 0.;
-		auto boss = dynamic_cast<Boss*>(owner);
-
-		auto bullet = std::make_shared<Bullet>(owner->GetOwner(), ObjectType::EBullet, 100.);
-		auto bulletTransform = bullet->AddComponent<TransformComponent>();
-
-		double rotate = angle + bulletNumber * PI / TOTAL_BULLET_NUMBER;
-
-		D3DXVECTOR3 startPositionGap = { float(START_POS_OFFSET * cos(rotate) + START_POS_OFFSET * sin(rotate)), float(START_POS_OFFSET * cos(rotate) - START_POS_OFFSET * sin(rotate)), 0.f };
-
-		bulletTransform->SetPosition(startPos.x + startPositionGap.x, startPos.y + startPositionGap.y);
-		bulletTransform->SetScale(20., 20.);
-		bulletTransform->SetRotationZ(rotate);
-
-		boss->GetOwner()->AddObject(ObjectType::EBullet, bullet);
-		bulletNumber++;
-	}
 }
 
 void Boss::BossAttack2::TestForExit(Object* owner)

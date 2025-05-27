@@ -5,7 +5,6 @@
 #include "Engine.h"
 #include "InputSystem.h"
 #include "ObjectManager.h"
-#include "Bullet.h"
 
 Player::Player(ObjectManager* owner, ObjectType objType, double speed)
     : Object(owner, objType, RenderType::Rect), speed(speed)

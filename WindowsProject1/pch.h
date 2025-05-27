@@ -54,12 +54,9 @@
 enum class ObjectType : int
 {
 	Neutral,
-	Alliance,
-	Player,
-	Enemy,
-	ABullet,
-	PBullet,
-	EBullet,
+	Back,
+	Mid,
+	Front,
 	Effect,
 	UI,
 	Cursor,
