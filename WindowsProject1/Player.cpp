@@ -42,7 +42,10 @@ void Player::KeyInput(double dt)
     if (input->IsKeyDown(VK_RIGHT)) {
         transform->Translate(speed * static_cast<float>(dt), 0);
     }
-    if (input->IsKeyPressed(VK_SPACE))
-    {
+    if (input->IsKeyDown('Q')) {
+        transform->SetRotationZ(-3.f);
+    }
+    if (input->IsKeyDown('E')) {
+        transform->SetRotationZ(3.f);
     }
 }

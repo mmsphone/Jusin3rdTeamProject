@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Object.h"
 #include "TransformComponent.h"
 
@@ -18,7 +18,7 @@ void Object::Update(double dt)
 void Object::Render(HDC hdc) 
 {
 	auto transform = GetComponent<TransformComponent>();
-	if (!transform) return; // ¾øÀ¸¸é ±×¸®Áö ¾ÊÀ½
+	if (!transform) return; // ì—†ìœ¼ë©´ ê·¸ë¦¬ì§€ ì•ŠìŒ
 
 	D3DXVECTOR3 pos = transform->GetPosition();
 	D3DXVECTOR3 scale = transform->GetScale();
