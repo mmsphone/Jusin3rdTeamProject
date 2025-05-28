@@ -28,9 +28,6 @@
     <Filter Include="09. Execution">
       <UniqueIdentifier>{c1836ab6-4590-4bda-8aa5-eceb159aae49}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. Miscellaneous\math">
-      <UniqueIdentifier>{88076f13-bfce-48a9-9fb1-8a48840677ba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Object Component\Collision">
       <UniqueIdentifier>{a668d586-3f0f-4b73-95d8-602cc741837a}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,18 @@
     <Filter Include="04. Object\00.Neutral\BigWheel_Yu">
       <UniqueIdentifier>{c0b2ab6a-fc2a-4668-92cf-aec1d645cde2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\01.Back\ButtonYu">
+      <UniqueIdentifier>{b7ad5212-9f98-4ccc-a0a1-6d7cc3ce05ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Mid\NoteYu">
+      <UniqueIdentifier>{7b1ec384-22a6-4fbb-9a92-6bc252bced63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Miscellaneous\math">
+      <UniqueIdentifier>{88076f13-bfce-48a9-9fb1-8a48840677ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\GameScene1\NoteMgr for Yu">
+      <UniqueIdentifier>{0f9bdac8-2f09-4949-8007-f070bfa09abe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -192,6 +201,15 @@
     <ClInclude Include="BigWheel.h">
       <Filter>04. Object\00.Neutral\BigWheel_Yu</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonYu.h">
+      <Filter>04. Object\01.Back\ButtonYu</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteYu.h">
+      <Filter>04. Object\02.Mid\NoteYu</Filter>
+    </ClInclude>
+    <ClInclude Include="NoteMgr.h">
+      <Filter>02. Scene\GameScene1\NoteMgr for Yu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -271,6 +289,15 @@
     </ClCompile>
     <ClCompile Include="BigWheel.cpp">
       <Filter>04. Object\00.Neutral\BigWheel_Yu</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonYu.cpp">
+      <Filter>04. Object\01.Back\ButtonYu</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteYu.cpp">
+      <Filter>04. Object\02.Mid\NoteYu</Filter>
+    </ClCompile>
+    <ClCompile Include="NoteMgr.cpp">
+      <Filter>02. Scene\GameScene1\NoteMgr for Yu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
