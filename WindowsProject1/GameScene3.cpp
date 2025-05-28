@@ -70,142 +70,177 @@ void GameScene3::Load() {
 	pTransform->SetScale(50.0f, 70.0f, 0.0f);
 }
 
-	void GameScene3::Update(double dt) {
-		if (m_eResult != eGameResult::None)
-			return;
-		objectManager->Update(dt);
+void GameScene3::Update(double dt) {
+	objectManager->Update(dt);
 
-		// 제출 카드 이동 완료 시 필드에 배치
-		if (m_pSubmittedCard && !m_pSubmittedCard->IsMoving()) {
-			m_pFieldCard = m_pSubmittedCard;
-			m_pSubmittedCard = nullptr;
-			CheckWinLoseCondition();
-			NextTurn();
-			m_bAITurnStarted = false;
+	// 제출 카드 이동 완료 시 필드에 배치
+	if (m_pSubmittedCard && !m_pSubmittedCard->IsMoving()) {
+		m_pFieldCard = m_pSubmittedCard;
+		m_pSubmittedCard = nullptr;
+
+		// 공격 카드였다면 공격 상태 진입
+		if (IsAttackCard(m_pFieldCard)) {
+			m_bAttackInProgress = true;
+			m_iAttackDrawCount = GetAttackDrawCount(m_pFieldCard);
+			m_pAttackingCard = m_pFieldCard;
 		}
-		// AI 턴 로직
-		if (m_eTurn == eTurn::AI && !m_pSubmittedCard && !m_bAITurnStarted) {
-			m_bAITurnStarted = true;
+		else {
+			m_bAttackInProgress = false;
+			m_iAttackDrawCount = 0;
+			m_pAttackingCard = nullptr;
+		}
 
-			// 1. 낼 수 있는 카드 탐색
-			Card* pSelected = nullptr;
-			for (Card* pCard : m_vecAIHand) {
+		CheckWinLoseCondition();
+		NextTurn();
+		m_bAITurnStarted = false;
+		return;
+	}
+
+	// 게임 끝났으면 행동 중단
+	if (m_eResult != eGameResult::None) return;
+
+	// AI 턴 처리
+	if (m_eTurn == eTurn::AI && !m_pSubmittedCard && !m_bAITurnStarted) {
+		m_bAITurnStarted = true;
+
+		Card* pSelected = nullptr;
+
+		for (Card* pCard : m_vecAIHand) {
+			if (!m_bAttackInProgress) {
+				// 일반 공격/제출
 				if (pCard->GetShape() == m_pFieldCard->GetShape() ||
 					pCard->GetNumber() == m_pFieldCard->GetNumber()) {
 					pSelected = pCard;
 					break;
 				}
 			}
-
-			if (pSelected) {
-				// 낼 수 있는 카드 있음 → 제출
-				pSelected->MoveToField(400.0f, 250.0f, 0.0f);
-				m_pSubmittedCard = pSelected;
-
-				m_vecAIHand.erase(
-					std::remove(m_vecAIHand.begin(), m_vecAIHand.end(), pSelected),
-					m_vecAIHand.end());
-				ResetAIHandPosition();
-			}
 			else {
-				// 낼 수 있는 카드 없음 → 드로우
-				if (!m_vecDeck.empty()) {
-					Card* pCard = m_vecDeck.back();
-					m_vecDeck.pop_back();
-					m_vecAIHand.push_back(pCard);
-					ResetAIHandPosition();
-					auto pT = pCard->GetComponent<TransformComponent>();
-					pT->SetPosition(100.0f + (m_vecAIHand.size() - 1) * 60.0f, 100.0f, 0.0f);
-					pT->SetScale(50.0f, 70.0f, 0.0f);
-				}
-				// 턴 넘김
-				CheckWinLoseCondition();
-				NextTurn();
-				m_bAITurnStarted = false;
-			}
-		}
-		// 제출 중이면 입력 무시
-		if (m_eTurn != eTurn::Player || m_pSubmittedCard) return;
-
-		auto input = Engine::GetInstance().GetInputSystem();
-		if (input->IsMousePressed()) {
-			D3DXVECTOR3 vMouse = input->GetMousePos();
-			POINT pt = { (LONG)vMouse.x, (LONG)vMouse.y };
-
-			// 1. 드로우 덱 클릭
-			if (m_pCardDeck) {
-				auto pTransform = m_pCardDeck->GetComponent<TransformComponent>();
-				D3DXVECTOR3 vPos = pTransform->GetPosition();
-				D3DXVECTOR3 vScale = pTransform->GetScale();
-				RECT rc = {
-					(int)(vPos.x - vScale.x * 0.5f),
-					(int)(vPos.y - vScale.y * 0.5f),
-					(int)(vPos.x + vScale.x * 0.5f),
-					(int)(vPos.y + vScale.y * 0.5f)
-				};
-				if (PtInRect(&rc, pt)) {
-					if (!m_vecDeck.empty()) {
-						Card* pCard = m_vecDeck.back();
-						m_vecDeck.pop_back();
-						m_vecPlayerHand.push_back(pCard);
-						ResetPlayerHandPosition();
-						auto pT = pCard->GetComponent<TransformComponent>();
-						pT->SetPosition(100.0f + (m_vecPlayerHand.size() - 1) * 60.0f, 400.0f, 0.0f);
-						pT->SetScale(50.0f, 70.0f, 0.0f);
-					}
-					m_pSelectedCard = nullptr;
-					CheckWinLoseCondition();
-					NextTurn(); // 턴 전환
-					return;
-				}
-			}
-
-			// 2. 플레이어 카드 클릭
-			for (auto& pCard : m_vecPlayerHand) {
-				auto pTransform = pCard->GetComponent<TransformComponent>();
-				D3DXVECTOR3 vPos = pTransform->GetPosition();
-				D3DXVECTOR3 vScale = pTransform->GetScale();
-				RECT rc = {
-					(int)(vPos.x - vScale.x * 0.5f),
-					(int)(vPos.y - vScale.y * 0.5f),
-					(int)(vPos.x + vScale.x * 0.5f),
-					(int)(vPos.y + vScale.y * 0.5f)
-				};
-
-				if (PtInRect(&rc, pt)) {
-					bool bCanSubmit =
-						pCard->GetShape() == m_pFieldCard->GetShape() ||
-						pCard->GetNumber() == m_pFieldCard->GetNumber();
-
-					if (!bCanSubmit)
-						break;
-
-					if (m_pSelectedCard == pCard) {
-						pCard->MoveToField(400.0f, 250.0f, 0.0f);
-						m_pSubmittedCard = pCard;
-
-						m_vecPlayerHand.erase(
-							std::remove(m_vecPlayerHand.begin(), m_vecPlayerHand.end(), pCard),
-							m_vecPlayerHand.end());
-						ResetPlayerHandPosition();
-						m_pSelectedCard = nullptr;
-					}
-					else {
-						if (m_pSelectedCard) {
-							auto prev = m_pSelectedCard->GetComponent<TransformComponent>();
-							prev->SetPosition(prev->GetPosition().x, 400.0f, 0.0f);
-						}
-
-						auto sel = pCard->GetComponent<TransformComponent>();
-						sel->SetPosition(sel->GetPosition().x, 370.0f, 0.0f);
-
-						m_pSelectedCard = pCard;
-					}
+				// 공격 중일 때는 방어 가능한 카드만
+				if (CanDefend(pCard, m_pAttackingCard)) {
+					pSelected = pCard;
 					break;
 				}
 			}
 		}
+
+		if (pSelected) {
+			pSelected->MoveToField(400.0f, 250.0f, 0.0f);
+			m_pSubmittedCard = pSelected;
+			m_vecAIHand.erase(
+				std::remove(m_vecAIHand.begin(), m_vecAIHand.end(), pSelected),
+				m_vecAIHand.end());
+			ResetAIHandPosition();
+		}
+		else {
+			// 방어 실패 → 드로우
+			for (int i = 0; i < m_iAttackDrawCount; ++i) {
+				if (!m_vecDeck.empty()) {
+					Card* pCard = m_vecDeck.back();
+					m_vecDeck.pop_back();
+					m_vecAIHand.push_back(pCard);
+
+					auto pT = pCard->GetComponent<TransformComponent>();
+					pT->SetPosition(100.0f + (m_vecAIHand.size() - 1) * 60.0f, 100.0f, 0.0f);
+					pT->SetScale(50.0f, 70.0f, 0.0f);
+				}
+			}
+			ResetAIHandPosition();
+
+			m_bAttackInProgress = false;
+			m_iAttackDrawCount = 0;
+			m_pAttackingCard = nullptr;
+
+			CheckWinLoseCondition();
+			NextTurn();
+			m_bAITurnStarted = false;
+		}
+		return;
 	}
+
+	// 플레이어 턴 아닐 시 입력 무시
+	if (m_eTurn != eTurn::Player || m_pSubmittedCard) return;
+
+	auto input = Engine::GetInstance().GetInputSystem();
+	if (input->IsMousePressed()) {
+		D3DXVECTOR3 vMouse = input->GetMousePos();
+		POINT pt = { (LONG)vMouse.x, (LONG)vMouse.y };
+
+		// 드로우 덱 클릭
+		if (m_pCardDeck) {
+			auto pTransform = m_pCardDeck->GetComponent<TransformComponent>();
+			D3DXVECTOR3 vPos = pTransform->GetPosition();
+			D3DXVECTOR3 vScale = pTransform->GetScale();
+			RECT rc = {
+				(int)(vPos.x - vScale.x * 0.5f),
+				(int)(vPos.y - vScale.y * 0.5f),
+				(int)(vPos.x + vScale.x * 0.5f),
+				(int)(vPos.y + vScale.y * 0.5f)
+			};
+			if (PtInRect(&rc, pt)) {
+				if (!m_vecDeck.empty()) {
+					Card* pCard = m_vecDeck.back();
+					m_vecDeck.pop_back();
+					m_vecPlayerHand.push_back(pCard);
+
+					auto pT = pCard->GetComponent<TransformComponent>();
+					pT->SetPosition(100.0f + (m_vecPlayerHand.size() - 1) * 60.0f, 400.0f, 0.0f);
+					pT->SetScale(50.0f, 70.0f, 0.0f);
+				}
+				ResetPlayerHandPosition();
+				m_pSelectedCard = nullptr;
+				CheckWinLoseCondition();
+				NextTurn();
+				return;
+			}
+		}
+
+		// 손패 클릭
+		for (auto& pCard : m_vecPlayerHand) {
+			auto pTransform = pCard->GetComponent<TransformComponent>();
+			D3DXVECTOR3 vPos = pTransform->GetPosition();
+			D3DXVECTOR3 vScale = pTransform->GetScale();
+			RECT rc = {
+				(int)(vPos.x - vScale.x * 0.5f),
+				(int)(vPos.y - vScale.y * 0.5f),
+				(int)(vPos.x + vScale.x * 0.5f),
+				(int)(vPos.y + vScale.y * 0.5f)
+			};
+
+			if (PtInRect(&rc, pt)) {
+				if (m_bAttackInProgress && !CanDefend(pCard, m_pAttackingCard))
+					break; // 방어 안 되면 클릭 무시
+
+				if (!m_bAttackInProgress &&
+					pCard->GetShape() != m_pFieldCard->GetShape() &&
+					pCard->GetNumber() != m_pFieldCard->GetNumber())
+					break; // 일반 제출도 불가
+
+				if (m_pSelectedCard == pCard) {
+					// 제출
+					pCard->MoveToField(400.0f, 250.0f, 0.0f);
+					m_pSubmittedCard = pCard;
+
+					m_vecPlayerHand.erase(
+						std::remove(m_vecPlayerHand.begin(), m_vecPlayerHand.end(), pCard),
+						m_vecPlayerHand.end());
+
+					ResetPlayerHandPosition();
+					m_pSelectedCard = nullptr;
+				}
+				else {
+					if (m_pSelectedCard) {
+						auto prev = m_pSelectedCard->GetComponent<TransformComponent>();
+						prev->SetPosition(prev->GetPosition().x, 400.0f, 0.0f);
+					}
+					auto sel = pCard->GetComponent<TransformComponent>();
+					sel->SetPosition(sel->GetPosition().x, 370.0f, 0.0f);
+					m_pSelectedCard = pCard;
+				}
+				break;
+			}
+		}
+	}
+}
 
 void GameScene3::Render(HDC hdc) {
 	if (m_eResult == eGameResult::PlayerWin)
