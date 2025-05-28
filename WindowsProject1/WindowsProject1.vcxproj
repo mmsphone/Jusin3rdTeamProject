@@ -143,6 +143,8 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="CWoodBlockBack.h" />
+    <ClInclude Include="CWoodMainBacks.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene2.h" />
     <ClInclude Include="GameScene3.h" />
@@ -170,6 +172,8 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="CWoodBlockBack.cpp" />
+    <ClCompile Include="CWoodMainBacks.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameScene1.cpp" />

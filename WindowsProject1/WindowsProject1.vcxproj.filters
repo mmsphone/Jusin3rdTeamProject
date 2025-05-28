@@ -109,6 +109,12 @@
     <Filter Include="04. Object\06.Cursor">
       <UniqueIdentifier>{d3e4d672-f2db-48b3-a90a-8d46d1dabefd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\01.Back\WoodBlocks">
+      <UniqueIdentifier>{3df6c5ee-5790-4509-945b-768c79db3a19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\01.Back\WoodBlocks\WoodBlockBack">
+      <UniqueIdentifier>{3a1431aa-ddd6-457a-a987-387907971ac1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -186,6 +192,12 @@
     <ClInclude Include="AnimationComponent.h">
       <Filter>05. Object Component\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="CWoodBlockBack.h">
+      <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodMainBacks.h">
+      <Filter>04. Object\01.Back\WoodBlocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -262,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>05. Object Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodBlockBack.cpp">
+      <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodMainBacks.cpp">
+      <Filter>04. Object\01.Back\WoodBlocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
