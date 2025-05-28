@@ -27,6 +27,9 @@ public:
 
     std::vector<Block> blocks;
 
+    int iScore = 0;
+    double dt;
+
 private:
     // std::unique_ptr<ObjectManager> objectManager;
 

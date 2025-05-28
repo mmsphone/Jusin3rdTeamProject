@@ -115,6 +115,12 @@
     <Filter Include="04. Object\01.Back\WoodBlocks\WoodBlockBack">
       <UniqueIdentifier>{3a1431aa-ddd6-457a-a987-387907971ac1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\05.UI\WoodBlockButton">
+      <UniqueIdentifier>{468237f2-6b35-4cf6-a167-e535bc1fad10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\06.Cursor\WoodBlockCursor">
+      <UniqueIdentifier>{cb7ca919-b3b1-4e02-9d53-861509ec1ef9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -198,6 +204,12 @@
     <ClInclude Include="CWoodMainBacks.h">
       <Filter>04. Object\01.Back\WoodBlocks</Filter>
     </ClInclude>
+    <ClInclude Include="CWoodBlockButton.h">
+      <Filter>04. Object\05.UI\WoodBlockButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodBlockCursor.h">
+      <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -280,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="CWoodMainBacks.cpp">
       <Filter>04. Object\01.Back\WoodBlocks</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodBlockButton.cpp">
+      <Filter>04. Object\05.UI\WoodBlockButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodBlockCursor.cpp">
+      <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

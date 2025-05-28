@@ -11,7 +11,7 @@ CWoodMainBacks::CWoodMainBacks(ObjectManager* owner, ObjectType objType, double 
     : Object(owner, objType, RenderType::Rect), speed(speed)
 {
     auto transform = AddComponent<TransformComponent>();
-    transform->SetPosition(70.0f, 120.0f);
+    transform->SetPosition(70.0f, 170.0f);
     transform->SetScale(400.0f, 400.0f);
 
     auto collision = AddComponent<CollisionComponent>();

@@ -1,17 +1,16 @@
+
 #pragma once
 #include "Object.h"
-class CWoodBlockBack :
-    public Object
-{
+#include "Engine.h"
+#include "InputSystem.h"
+#include "TransformComponent.h"
+
+class CWoodBlockCursor : public Object {
     double speed = 10.;
     bool b_CllisionCheak = false;
     bool bBlockCheak = false;
 public:
-    CWoodBlockBack(ObjectManager*, ObjectType objType, double);
+    CWoodBlockCursor(ObjectManager*, ObjectType objType, double);
     virtual void Update(double dt);
     virtual void Render(HDC hdc);
-
-private:
-    void KeyInput(double dt);
 };
-

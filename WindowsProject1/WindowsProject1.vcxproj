@@ -144,6 +144,8 @@
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CWoodBlockBack.h" />
+    <ClInclude Include="CWoodBlockButton.h" />
+    <ClInclude Include="CWoodBlockCursor.h" />
     <ClInclude Include="CWoodMainBacks.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene2.h" />
@@ -173,6 +175,8 @@
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CWoodBlockBack.cpp" />
+    <ClCompile Include="CWoodBlockButton.cpp" />
+    <ClCompile Include="CWoodBlockCursor.cpp" />
     <ClCompile Include="CWoodMainBacks.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Engine.cpp" />
