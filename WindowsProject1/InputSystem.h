@@ -2,8 +2,6 @@
 class InputSystem {
 public:
     InputSystem();
-    void OnKeyDown(WPARAM key);
-    void OnKeyUp(WPARAM key);
     void OnMouseDown();
     void OnMouseUp();
     void Tick();

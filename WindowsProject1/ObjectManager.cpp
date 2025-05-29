@@ -37,6 +37,17 @@ void ObjectManager::Render(HDC hdc)
 	}
 }
 
+void ObjectManager::Render(LPDIRECT3DDEVICE9 d3dDevice)
+{
+	for (const auto& objList : objects)
+	{
+		for (const auto& obj : objList)
+		{
+			obj->Render(d3dDevice);
+		}
+	}
+}
+
 void ObjectManager::AddObject(ObjectType type, std::shared_ptr<Object> object)
 {
 	objects[static_cast<int>(type)].push_back(object);
@@ -73,6 +84,11 @@ void ObjectManager::ClearObjectList(ObjectType type)
 	int index = static_cast<int>(type);
 	objects[index].clear();
 	deadObjects[index].clear();
+}
+
+void ObjectManager::ClearAll()
+{
+	objects.clear();
 }
 
 void ObjectManager::CleanDeadObjects() {

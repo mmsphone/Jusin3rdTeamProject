@@ -30,6 +30,8 @@ bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
     return true;
 }
 
+
+
 void Engine::Run()
 {
     while (isRunning)
@@ -135,6 +137,22 @@ bool Engine::InitWindow(HINSTANCE hInstance, int nCmdShow)
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
+    // 콘솔 창 생성
+    AllocConsole();
+
+    // C 런타임의 stdout, stderr를 콘솔에 연결
+    FILE* fp;
+    freopen_s(&fp, "CONOUT$", "w", stdout);
+    freopen_s(&fp, "CONOUT$", "w", stderr);
+    // C++ 스트림 연결 (옵션)
+    std::ios::sync_with_stdio();  // C와 C++ 동기화
+    std::cout.clear();
+    std::cerr.clear();
+    std::clog.clear();
+
+    // 화면에 테스트 메시지 출력
+    std::cout << "Console initialized." << std::endl;
+
     return true;
 }
 
@@ -143,14 +161,6 @@ LRESULT CALLBACK Engine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
     auto input = Engine::GetInstance().GetInputSystem();
     switch (message)
     {
-    case WM_KEYDOWN:
-        input->OnKeyDown(wParam);
-        break;
-
-    case WM_KEYUP:
-        input->OnKeyUp(wParam);
-        break;
-
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
@@ -170,8 +180,13 @@ LRESULT CALLBACK Engine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 
 void Engine::Render()
 {
-    HDC hdc = GetDC(hWnd);
 
+    HDC hdc = GetDC(hWnd);
+    if (sceneManager->activeScene == sceneManager->scenes["Game4"])
+    {
+        sceneManager->Render(hdc);
+        return;
+    }
     RECT rect;
     GetClientRect(hWnd, &rect);
     int width = rect.right;
