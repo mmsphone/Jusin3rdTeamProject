@@ -9,12 +9,22 @@ public:
     std::wstring text;
     std::function<void()> onClick;
 
+private:
+    bool m_bVisible = true;
+
+public:
     ButtonObject(ObjectManager* pOwner, std::wstring label, std::function<void()> func)
         : Object(pOwner, ObjectType::UI, RenderType::Rect),
         text(std::move(label)), onClick(std::move(func)) {
+        AddComponent<TransformComponent>();
     }
 
+    void SetVisible(bool bVisible) { m_bVisible = bVisible; }
+    bool IsVisible() const { return m_bVisible; }
+
     void Update(double dt) override {
+        if (!m_bVisible) return;
+
         auto input = Engine::GetInstance().GetInputSystem();
         if (input->IsMousePressed()) {
             auto tf = GetComponent<TransformComponent>();
@@ -40,6 +50,8 @@ public:
     }
 
     void Render(HDC hdc) override {
+        if (!m_bVisible) return;
+
         auto tf = GetComponent<TransformComponent>();
         if (!tf) return;
 

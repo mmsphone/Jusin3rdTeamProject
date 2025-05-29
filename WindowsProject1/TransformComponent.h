@@ -105,4 +105,4 @@ private:
         matWorld = matS * matR * matT; //scale rotate translate
         bDirty = false;
     }
-};
+};  

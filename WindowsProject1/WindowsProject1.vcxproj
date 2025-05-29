@@ -146,8 +146,13 @@
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BigWheel.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="ButtonYu.h" />
+    <ClInclude Include="CoinYu.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="CardDeck.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CWoodBlockBack.h" />
     <ClInclude Include="CWoodBlockButton.h" />
@@ -172,6 +177,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShuffleEffect.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="TextureManager.h" />
@@ -181,8 +187,13 @@
     <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BigWheel.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="ButtonYu.cpp" />
+    <ClCompile Include="CoinYu.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardDeck.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CWoodBlockBack.cpp" />
     <ClCompile Include="CWoodBlockButton.cpp" />
@@ -210,6 +221,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShuffleEffect.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stone.cpp" />
     <ClCompile Include="TextureManager.cpp">
