@@ -140,6 +140,15 @@
     <Filter Include="04. Object\06.Cursor\WoodBlockCursor">
       <UniqueIdentifier>{cb7ca919-b3b1-4e02-9d53-861509ec1ef9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\DH">
+      <UniqueIdentifier>{5ce0f18a-1d5a-4f68-9026-818748aec24b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Object Component\Camera">
+      <UniqueIdentifier>{ab0cdd6a-e50e-4fac-b246-d4bfb0dcdab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Object Component\Physics">
+      <UniqueIdentifier>{b0abfd2f-2b01-4c7b-93f9-b4657cf062ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -245,6 +254,18 @@
     <ClInclude Include="CWoodBlockCursor.h">
       <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
     </ClInclude>
+    <ClInclude Include="Plate.h">
+      <Filter>04. Object\DH</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.h">
+      <Filter>05. Object Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>04. Object\DH</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics3D.h">
+      <Filter>05. Object Component\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -349,6 +370,18 @@
     </ClCompile>
     <ClCompile Include="CWoodBlockCursor.cpp">
       <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
+    </ClCompile>
+    <ClCompile Include="Plate.cpp">
+      <Filter>04. Object\DH</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>05. Object Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics3D.cpp">
+      <Filter>05. Object Component\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>04. Object\DH</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX 
 #include <Windows.h> //window
+#include <d3d9.h>
 #include "Math.h"
 
 //Data Structure & Algorithm
@@ -15,7 +16,7 @@
 #include <string>
 #include <queue>
 #include <algorithm>
-
+using namespace std;
 //C++ std
 #include <iostream>
 #include <memory>
@@ -27,7 +28,7 @@
 
 #include <fmod.hpp> // Sound
 #include <fmod_errors.h>
-#pragma comment(lib, "../fMod/core/lib/x64/fmod_vc.lib")
+#pragma comment(lib, "fmod_vc.lib")
 
 #include <vfw.h> // Video
 #pragma comment(lib, "vfw32.lib")

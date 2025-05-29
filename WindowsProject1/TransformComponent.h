@@ -23,10 +23,22 @@ public:
         vPosition = D3DXVECTOR3(x, y, z);
         bDirty = true;
     }
+
+    void SetPosition(D3DXVECTOR3 vec) {
+        vPosition = vec;
+        bDirty = true;
+    }
+
     void Translate(float dx, float dy, float dz = 0.0f) {
         vPosition += D3DXVECTOR3(dx, dy, dz);
         bDirty = true;
     }
+
+    void Translate(D3DXVECTOR3 vec) {
+        vPosition += vec;
+        bDirty = true;
+    }
+
 
     void SetRotationX(float angleRadians) {
         fRotationX = angleRadians;
