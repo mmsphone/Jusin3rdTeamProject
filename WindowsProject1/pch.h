@@ -29,7 +29,7 @@ using namespace std;
 
 #include <fmod.hpp> // Sound
 #include <fmod_errors.h>
-#pragma comment(lib, "fmod_vc.lib")
+#pragma comment(lib, "../fMod/core/lib/x64/fmod_vc.lib")
 
 #include <vfw.h> // Video
 #pragma comment(lib, "vfw32.lib")

@@ -117,7 +117,7 @@
     </Filter>
     <Filter Include="04. Object\02.Mid\CoinYu">
       <UniqueIdentifier>{7b1ec384-22a6-4fbb-9a92-6bc252bced63}</UniqueIdentifier>
-	  </Filter>
+    </Filter>
     <Filter Include="04. Object\02.Mid\Card">
       <UniqueIdentifier>{7ecb0d78-ba2a-4f74-8575-ba10ed493260}</UniqueIdentifier>
     </Filter>
@@ -129,7 +129,7 @@
     </Filter>
     <Filter Include="04. Object\04.Effect\ShuffleEffect">
       <UniqueIdentifier>{b1a4c0ef-0374-4090-ad74-9464a7ed5929}</UniqueIdentifier>
-	  </Filter>
+    </Filter>
     <Filter Include="04. Object\01.Back\WoodBlocks">
       <UniqueIdentifier>{3df6c5ee-5790-4509-945b-768c79db3a19}</UniqueIdentifier>
     </Filter>
@@ -139,7 +139,6 @@
     <Filter Include="04. Object\06.Cursor\WoodBlockCursor">
       <UniqueIdentifier>{cb7ca919-b3b1-4e02-9d53-861509ec1ef9}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="04. Object\DH">
       <UniqueIdentifier>{5ce0f18a-1d5a-4f68-9026-818748aec24b}</UniqueIdentifier>
     </Filter>
@@ -231,7 +230,7 @@
     </ClInclude>
     <ClInclude Include="CoinYu.h">
       <Filter>04. Object\02.Mid\CoinYu</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>04. Object\02.Mid\Card</Filter>
     </ClInclude>
@@ -243,20 +242,16 @@
     </ClInclude>
     <ClInclude Include="ShuffleEffect.h">
       <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="CWoodBlockBack.h">
       <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
     </ClInclude>
     <ClInclude Include="CWoodMainBacks.h">
       <Filter>04. Object\01.Back\WoodBlocks</Filter>
     </ClInclude>
-    <ClInclude Include="CWoodBlockButton.h">
-      <Filter>04. Object\05.UI\WoodBlockButtons\WoodBlockButton</Filter>
-    </ClInclude>
     <ClInclude Include="CWoodBlockCursor.h">
       <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
     </ClInclude>
-
     <ClInclude Include="Plate.h">
       <Filter>04. Object\DH</Filter>
     </ClInclude>
@@ -269,6 +264,12 @@
     <ClInclude Include="Physics3D.h">
       <Filter>05. Object Component\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="CWoodBlock.h" />
+    <ClInclude Include="CWoodBlockButton.h" />
+    <ClInclude Include="CWoodBlockButtons.h" />
+    <ClInclude Include="CWoodBlockShape.h" />
+    <ClInclude Include="CWoodEndButton.h" />
+    <ClInclude Include="CWoodEndUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -351,7 +352,7 @@
     </ClCompile>
     <ClCompile Include="CoinYu.cpp">
       <Filter>04. Object\02.Mid\CoinYu</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Card.cpp">
       <Filter>04. Object\02.Mid\Card</Filter>
     </ClCompile>
@@ -363,15 +364,12 @@
     </ClCompile>
     <ClCompile Include="ShuffleEffect.cpp">
       <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="CWoodBlockBack.cpp">
       <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
     </ClCompile>
     <ClCompile Include="CWoodMainBacks.cpp">
       <Filter>04. Object\01.Back\WoodBlocks</Filter>
-    </ClCompile>
-    <ClCompile Include="CWoodBlockButton.cpp">
-      <Filter>04. Object\05.UI\WoodBlockButtons\WoodBlockButton</Filter>
     </ClCompile>
     <ClCompile Include="CWoodBlockCursor.cpp">
       <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
@@ -388,6 +386,12 @@
     <ClCompile Include="Stone.cpp">
       <Filter>04. Object\DH</Filter>
     </ClCompile>
+    <ClCompile Include="CWoodBlock.cpp" />
+    <ClCompile Include="CWoodBlockButton.cpp" />
+    <ClCompile Include="CWoodBlockButtons.cpp" />
+    <ClCompile Include="CWoodBlockShape.cpp" />
+    <ClCompile Include="CWoodEndButton.cpp" />
+    <ClCompile Include="CWoodEndUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math.inl">
