@@ -16,7 +16,7 @@ void Card::Update(double dt) {
 		D3DXVECTOR3 vDir = m_vTargetPos - vPos;
 		float fLen = D3DXVec3Length(&vDir);
 
-		if (fLen < 10.0f) {
+		if (fLen < fSpeed*0.05) {
 			pTransform->SetPosition(m_vTargetPos.x, m_vTargetPos.y, m_vTargetPos.z);
 			m_bMoveToField = false;
 		}
@@ -28,26 +28,26 @@ void Card::Update(double dt) {
 	}
 }
 
-std::string Card::GetCardCode() {
-	std::string strCode;
+std::wstring Card::GetCardCode() {
+	std::wstring strCode;
 
 	switch (eShape) {
-	case eCardShape::H: strCode += "H"; break;
-	case eCardShape::S: strCode += "S"; break;
-	case eCardShape::C: strCode += "C"; break;
-	case eCardShape::D: strCode += "D"; break;
+	case eCardShape::H: strCode += L"♥"; break;
+	case eCardShape::S: strCode += L"♠"; break;
+	case eCardShape::C: strCode += L"♣"; break;
+	case eCardShape::D: strCode += L"♦"; break;
 	}
 
 	int iNumber = static_cast<int>(eNumber);
 	if (iNumber >= 2 && iNumber <= 10) {
-		strCode += std::to_string(iNumber);
+		strCode += std::to_wstring(iNumber);
 	}
 	else {
 		switch (eNumber) {
-		case eCardNumber::A: strCode += "A"; break;
-		case eCardNumber::J: strCode += "J"; break;
-		case eCardNumber::Q: strCode += "Q"; break;
-		case eCardNumber::K: strCode += "K"; break;
+		case eCardNumber::A: strCode += L"A"; break;
+		case eCardNumber::J: strCode += L"J"; break;
+		case eCardNumber::Q: strCode += L"Q"; break;
+		case eCardNumber::K: strCode += L"K"; break;
 		default: break;
 		}
 	}
@@ -63,24 +63,25 @@ void Card::MoveToField(float x, float y, float z) {
 void Card::Render(HDC hdc) {
 	Object::Render(hdc); // 사각형 출력 (점 4개)
 
+	if (!m_bVisible)  return;
+
 	auto pTransform = GetComponent<TransformComponent>();
 	if (!pTransform) return;
 
 	D3DXVECTOR3 vPos = pTransform->GetPosition();
 
-	std::string strCode = GetCardCode();
+	std::wstring strCode = GetCardCode();
 	int iTextLen = static_cast<int>(strCode.length());
 
 	// 🔷 글자 출력 전 배경 지우기
 	RECT textRect = {
 		(int)(vPos.x - 15),
-		(int)(vPos.y - 15),
+		(int)(vPos.y - 30),
 		(int)(vPos.x + 15),
-		(int)(vPos.y + 5)
+		(int)(vPos.y + 30)
 	};
 	FillRect(hdc, &textRect, (HBRUSH)(COLOR_WINDOW + 1)); // 시스템 배경색
 
 	// 🔷 텍스트 출력
-	TextOutA(hdc, (int)(vPos.x) - 10, (int)(vPos.y) - 10,
-		strCode.c_str(), iTextLen);
+	DrawTextW(hdc, strCode.c_str(), -1, &textRect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }

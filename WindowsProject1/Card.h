@@ -21,13 +21,15 @@ private:
 	bool m_bMoveToField = false;
 	D3DXVECTOR3 m_vTargetPos;
 	float fSpeed = 800.f;
+	bool m_bVisible=false;
 public:
 	Card(ObjectManager* owner, eCardShape eShape, eCardNumber eNumber);
 	void Update(double dt) override;
 	void Render(HDC hdc) override;
-	std::string GetCardCode();
+	std::wstring GetCardCode();
 	eCardShape GetShape() const { return eShape; }
 	eCardNumber GetNumber() const { return eNumber; }
 	bool IsMoving() const { return m_bMoveToField; };
 	void MoveToField(float x, float y, float z = 0.0f);
+	void SetVisible(bool _visible) { m_bVisible = _visible; }
 };
