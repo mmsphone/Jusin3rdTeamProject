@@ -145,7 +145,13 @@
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="ButtonYu.h" />
     <ClInclude Include="CoinYu.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="CardDeck.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="CWoodBlockBack.h" />
+    <ClInclude Include="CWoodBlockButton.h" />
+    <ClInclude Include="CWoodBlockCursor.h" />
+    <ClInclude Include="CWoodMainBacks.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene2.h" />
     <ClInclude Include="GameScene3.h" />
@@ -163,6 +169,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShuffleEffect.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TransformComponent.h" />
@@ -175,7 +182,13 @@
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="ButtonYu.cpp" />
     <ClCompile Include="CoinYu.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardDeck.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="CWoodBlockBack.cpp" />
+    <ClCompile Include="CWoodBlockButton.cpp" />
+    <ClCompile Include="CWoodBlockCursor.cpp" />
+    <ClCompile Include="CWoodMainBacks.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameScene1.cpp" />
@@ -196,6 +209,7 @@
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShuffleEffect.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TextureManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
