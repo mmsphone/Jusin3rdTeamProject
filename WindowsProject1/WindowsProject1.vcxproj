@@ -140,8 +140,11 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BigWheel.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="ButtonYu.h" />
+    <ClInclude Include="CoinYu.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardDeck.h" />
     <ClInclude Include="CollisionComponent.h" />
@@ -174,8 +177,11 @@
   <ItemGroup>
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BigWheel.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="ButtonYu.cpp" />
+    <ClCompile Include="CoinYu.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardDeck.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
