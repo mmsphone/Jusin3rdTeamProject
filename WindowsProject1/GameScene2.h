@@ -7,5 +7,13 @@ class GameScene2 :
 	virtual void Update(double dt);
 	virtual void Render(HDC hdc);
 	virtual void Unload();
+
+
+private:
+	double totalTime = 30.0; // 제한 시간 (초)
+	double elapsedTime = 0.0;
+	bool bTimeOver = false;
+	int min;
+	int sec;
 };
 

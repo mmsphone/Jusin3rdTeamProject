@@ -1,32 +1,24 @@
 #include "pch.h"
-#include "CWoodBlockButton.h"
+#include "CWoodEndButton.h"
 #include "CWoodBlockShape.h"
+#include "Engine.h"
+#include "SceneManager.h"
+#include "CWoodBlockCursor.h"
 
-CWoodBlockButton::CWoodBlockButton(ObjectManager* owner, ObjectType objType, double speed, int _iBlockType)
+
+CWoodEndButton::CWoodEndButton(ObjectManager* owner, ObjectType objType, double speed)
     : Object(owner, objType, RenderType::Rect), speed(speed)
 {
-    iBlockType = _iBlockType;
 
     auto transform = AddComponent<TransformComponent>();
-    transform->SetPosition(70.0f, 170.0f);
-    transform->SetScale(140.0f, 140.0f);
-
-    blockshape = std::make_shared<CWoodBlockShape>(owner, ObjectType::Mid, 100., iBlockType);
-
-
-
+    transform->SetPosition(330.0f, 260.0f);
+    transform->SetScale(155.0f, 50.0f);
 }
-void CWoodBlockButton::Update(double dt) {
-    
+void CWoodEndButton::Update(double dt) {
+
 
     auto transform = GetComponent<TransformComponent>();
     if (!transform) return;
-   
-    auto shapeTransform = blockshape->GetComponent<TransformComponent>();
-    if (shapeTransform) {
-        shapeTransform->SetPosition(transform->GetPosition().x+40, transform->GetPosition().y + 40);
-    }
-
     D3DXVECTOR3 pos = transform->GetPosition();
     D3DXVECTOR3 scale = transform->GetScale();
 
@@ -44,11 +36,15 @@ void CWoodBlockButton::Update(double dt) {
     auto input = Engine::GetInstance().GetInputSystem();
     if (PtInRect(&rect, ptMouse))
     {
+
+
+        std::wstring name = L"Menu";
+
         if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) {
-            if (!isSelected && !isBlockin) {
-                wasJustClicked = true; // 클릭되었음을 표시
-            }
+            // Engine::GetInstance().sceneManager->SetActiveScene("Clear");
+            Engine::GetInstance().sceneManager->SetActiveScene(std::string(name.begin(), name.end()));
         }
+    
 
         bHover = true;
     }
@@ -56,14 +52,13 @@ void CWoodBlockButton::Update(double dt) {
         bHover = false;
     }
 
-    blockshape->Update(dt);
 }
 
-void CWoodBlockButton::Render(HDC hdc) {
+void CWoodEndButton::Render(HDC hdc) {
 
     HPEN linePen = CreatePen(PS_SOLID, 4, RGB(61, 38, 27));
     HPEN oldPen;
-    HBRUSH backBrush = CreateSolidBrush((isBlockin? RGB(42, 20, 16) :(isSelected ? RGB(145, 90, 65) : (bHover ? RGB(66, 41, 30) : RGB(84, 52, 38)))));
+    HBRUSH backBrush = CreateSolidBrush((bHover ? RGB(66, 41, 30) : RGB(84, 52, 38)));
     HBRUSH oldBrush;
 
     auto transform = GetComponent<TransformComponent>();
@@ -82,7 +77,4 @@ void CWoodBlockButton::Render(HDC hdc) {
     DeleteObject(linePen);
     DeleteObject(backBrush);
 
-    if (!isBlockin) {
-        blockshape->Render(hdc);
-    }
 }

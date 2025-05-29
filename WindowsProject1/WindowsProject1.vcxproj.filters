@@ -115,11 +115,26 @@
     <Filter Include="04. Object\01.Back\WoodBlocks\WoodBlockBack">
       <UniqueIdentifier>{3a1431aa-ddd6-457a-a987-387907971ac1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Object\05.UI\WoodBlockButton">
-      <UniqueIdentifier>{468237f2-6b35-4cf6-a167-e535bc1fad10}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Object\06.Cursor\WoodBlockCursor">
       <UniqueIdentifier>{cb7ca919-b3b1-4e02-9d53-861509ec1ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05.UI\WoodBlockButtons">
+      <UniqueIdentifier>{c21420b2-1e77-477d-b88e-5062dc41efde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05.UI\WoodBlockButtons\WoodBlockButton">
+      <UniqueIdentifier>{468237f2-6b35-4cf6-a167-e535bc1fad10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Mid\WoodBlockShape">
+      <UniqueIdentifier>{89f5dc30-49bc-4a3a-96ad-4187471429ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Mid\WoodBlockShape\WoodBlock">
+      <UniqueIdentifier>{4b5881f6-70af-45bc-9ab3-c917d5b127bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05.UI\WoodEndUI">
+      <UniqueIdentifier>{f9469503-6959-4748-b877-88eb0ef7f462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\05.UI\WoodEndUI\WoodEndButton">
+      <UniqueIdentifier>{2028e86b-404a-4a07-9d02-8cd497018494}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,10 +220,25 @@
       <Filter>04. Object\01.Back\WoodBlocks</Filter>
     </ClInclude>
     <ClInclude Include="CWoodBlockButton.h">
-      <Filter>04. Object\05.UI\WoodBlockButton</Filter>
+      <Filter>04. Object\05.UI\WoodBlockButtons\WoodBlockButton</Filter>
     </ClInclude>
     <ClInclude Include="CWoodBlockCursor.h">
       <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodBlockButtons.h">
+      <Filter>04. Object\05.UI\WoodBlockButtons</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodBlock.h">
+      <Filter>04. Object\02.Mid\WoodBlockShape\WoodBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodBlockShape.h">
+      <Filter>04. Object\02.Mid\WoodBlockShape</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodEndUI.h">
+      <Filter>04. Object\05.UI\WoodEndUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CWoodEndButton.h">
+      <Filter>04. Object\05.UI\WoodEndUI\WoodEndButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -294,10 +324,25 @@
       <Filter>04. Object\01.Back\WoodBlocks</Filter>
     </ClCompile>
     <ClCompile Include="CWoodBlockButton.cpp">
-      <Filter>04. Object\05.UI\WoodBlockButton</Filter>
+      <Filter>04. Object\05.UI\WoodBlockButtons\WoodBlockButton</Filter>
     </ClCompile>
     <ClCompile Include="CWoodBlockCursor.cpp">
       <Filter>04. Object\06.Cursor\WoodBlockCursor</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodBlockButtons.cpp">
+      <Filter>04. Object\05.UI\WoodBlockButtons</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodBlock.cpp">
+      <Filter>04. Object\02.Mid\WoodBlockShape\WoodBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodBlockShape.cpp">
+      <Filter>04. Object\02.Mid\WoodBlockShape</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodEndUI.cpp">
+      <Filter>04. Object\05.UI\WoodEndUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CWoodEndButton.cpp">
+      <Filter>04. Object\05.UI\WoodEndUI\WoodEndButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "InputSystem.h"
 #include "ObjectManager.h"
 #include "CWoodBlockBack.h"
+#include "CWoodBlockButtons.h"
 
 CWoodMainBacks::CWoodMainBacks(ObjectManager* owner, ObjectType objType, double speed)
     : Object(owner, objType, RenderType::Rect), speed(speed)
@@ -21,7 +22,7 @@ CWoodMainBacks::CWoodMainBacks(ObjectManager* owner, ObjectType objType, double 
         for (int j = 0; j < iGridW; ++j) {
             float fX = (j*40)+ transform->GetPosition().x;
             float fY = (i*40) + transform->GetPosition().y;
-            std::shared_ptr<Object> blockTile = std::make_shared<CWoodBlockBack>(owner, ObjectType::Front, 100.);
+            std::shared_ptr<Object> blockTile = std::make_shared<CWoodBlockBack>(owner, objType, 100.);
 
             blockTile->GetComponent<TransformComponent>()->SetPosition(fX, fY);
 
@@ -34,9 +35,137 @@ CWoodMainBacks::CWoodMainBacks(ObjectManager* owner, ObjectType objType, double 
     // objectManager->Initialize();
 }
 
-void CWoodMainBacks::Update(double dt) {
+std::vector<std::vector<bool>> CWoodMainBacks::RotateShape(int type, float radians) {
 
+// #ifdef _DEBUG
+//     OutputDebugStringW((L"회전: " + radians + L"\n").c_str());
+// #endif
+    int angle = (int)(radians) % 360;
+    if (angle < 0) angle += 360;
+
+    const std::vector<std::vector<bool>>& shape = blockShapes[type];
+    std::vector<std::vector<bool>> result(3, std::vector<bool>(3, false));
+
+    switch (angle) {
+    case 90:
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j)
+                result[j][2 - i] = shape[i][j]; // 시계 방향 회전
+        break;
+
+    case 180:
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j)
+                result[2 - i][2 - j] = shape[i][j]; // 180도 회전
+        break;
+
+    case 270:
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j)
+                result[2 - j][i] = shape[i][j]; // 반시계 방향 90도 = 시계방향 270도
+        break;
+
+    default:
+        result = shape; // 0도 회전 (원형 그대로)
+        break;
+    }
+
+    return result;
 }
+void CWoodMainBacks::Update(double dt) {
+    auto buttonUI = std::dynamic_pointer_cast<CWoodBlockButtons>(owner->GetObjectList(ObjectType::UI).front());
+    int iBlockType = buttonUI->iBlockType;
+    std::shared_ptr<CWoodBlockShape> blockShape = buttonUI->blockshape;
+
+    // 모든 블록의 충돌 시각화 초기화
+    for (auto& block : blocks) {
+        std::dynamic_pointer_cast<CWoodBlockBack>(block.block)->b_CllisionCheak = false;
+    }
+
+    if (iBlockType != -1) {
+        POINT mousePos;
+        GetCursorPos(&mousePos);
+        ScreenToClient(GetActiveWindow(), &mousePos);
+
+        bool foundCenter = false;
+        int baseX = 0, baseY = 0;
+
+        // 마우스 위치 기반 중심 블럭 찾기
+        for (int i = 0; i < iGridH && !foundCenter; ++i) {
+            for (int j = 0; j < iGridW; ++j) {
+                int index = i * iGridW + j;
+                auto transform = blocks[index].block->GetComponent<TransformComponent>();
+                if (!transform) continue;
+
+                D3DXVECTOR3 pos = transform->GetPosition();
+                RECT rect = { (LONG)pos.x, (LONG)pos.y, (LONG)(pos.x + 40), (LONG)(pos.y + 40) };
+
+                if (PtInRect(&rect, mousePos)) {
+                    baseX = j;
+                    baseY = i;
+                    foundCenter = true;
+                    break;
+                }
+            }
+        }
+
+        if (foundCenter) {
+            std::vector<std::vector<bool>> rotatedShape = RotateShape(iBlockType, buttonUI->angle);
+
+            const int centerX = 1;
+            const int centerY = 1;
+
+            std::vector<int> validIndices;
+            bool canPlace = true;
+
+            for (int y = 0; y < 3; ++y) {
+                for (int x = 0; x < 3; ++x) {
+                    if (!rotatedShape[y][x]) continue;
+
+                    int offsetX = x - centerX;
+                    int offsetY = y - centerY;
+
+                    int targetX = baseX + offsetX;
+                    int targetY = baseY + offsetY;
+
+                    if (targetX < 0 || targetX >= iGridW || targetY < 0 || targetY >= iGridH) {
+                        canPlace = false;
+                        continue;
+                    }
+
+                    int tIndex = targetY * iGridW + targetX;
+
+                    if (std::dynamic_pointer_cast<CWoodBlockBack>(blocks[tIndex].block)->bBlockCheak) {
+                        canPlace = false;
+                    }
+
+                    validIndices.push_back(tIndex);
+                }
+            }
+
+            // 마우스 클릭 시 블록 배치
+            if (canPlace && (GetAsyncKeyState(VK_LBUTTON) & 0x8000)) {
+                for (int idx : validIndices) {
+                    std::dynamic_pointer_cast<CWoodBlockBack>(blocks[idx].block)->bBlockCheak = true;
+                    ++iScore;
+                }
+                buttonUI->b_blockIn = true;
+            }
+
+            // 충돌 시각화
+            for (int idx : validIndices) {
+                std::dynamic_pointer_cast<CWoodBlockBack>(blocks[idx].block)->b_CllisionCheak = true;
+            }
+        }
+    }
+
+    // 모든 블럭 업데이트
+    for (auto& block : blocks) {
+        block.block->Update(dt);
+    }
+}
+
+
 
 void CWoodMainBacks::Render(HDC hdc) {
 

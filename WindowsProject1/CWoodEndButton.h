@@ -5,14 +5,15 @@
 #include "InputSystem.h"
 #include "TransformComponent.h"
 
-class CWoodBlockCursor : public Object {
+class CWoodEndButton : public Object {
 public:
+    bool bGotoMenu = false;
     double speed = 10.;
-    bool b_CllisionCheak = false;
-    bool bBlockCheak = false;
-    bool bshow = false;
+    bool bHover = false;
 public:
-    CWoodBlockCursor(ObjectManager*, ObjectType objType, double);
+    CWoodEndButton(ObjectManager*, ObjectType objType, double);
     virtual void Update(double dt);
     virtual void Render(HDC hdc);
+
+private:
 };

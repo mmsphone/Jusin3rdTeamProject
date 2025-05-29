@@ -31,9 +31,55 @@ public:
     double dt;
 
 private:
+
+    std::vector<std::vector<bool>> RotateShape(int shape, float radians);
     // std::unique_ptr<ObjectManager> objectManager;
-
-
-
+    const std::vector<std::vector<bool>> blockShapes[9] = {
+    {
+        { true, false, false },
+        { true, false, false },
+        { true, true,  false }
+    },
+    {
+        { false, false, true },
+        { false, false, true },
+        { false, true,  true }
+    },
+    {
+        { true, true, false },
+        { true, true, false },
+        { false, false, false }
+    },
+    {
+        { false, true,  false },
+        { true,  true,  true  },
+        { false, false, false }
+    },
+    {
+        { true,  false, false },
+        { true, false, false },
+        { true,  true,  true  }
+    },
+    {
+        { false, true,  true },
+        { true,  true,  false },
+        { false, false, false }
+    },
+    {
+        { false,  true,  false },
+        { true, true,  true  },
+        { false, true, false }
+    },
+    {
+        { false,  false,  false },
+        { false, true,  false  },
+        { false, false, false }
+    },
+    {
+        { false,  false,  false },
+        { true, true,  true  },
+        { false, false, false }
+    }
+    };
 };
 

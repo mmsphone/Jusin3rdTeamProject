@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "CWoodBlockBack.h"
+#include "CWoodBlock.h"
 #include "TransformComponent.h"
 #include "CollisionComponent.h"
 #include "Engine.h"
@@ -7,38 +7,37 @@
 #include "ObjectManager.h"
 
 
-CWoodBlockBack::CWoodBlockBack(ObjectManager* owner, ObjectType objType, double speed)
-    : Object(owner, objType, RenderType::Rect), speed(speed)
+CWoodBlock::CWoodBlock(ObjectManager* owner, ObjectType objType, double speed)
+	: Object(owner, objType, RenderType::Rect), speed(speed)
 {
-    auto transform = AddComponent<TransformComponent>();
-    transform->SetPosition(0.0f, 0.0f);
-    transform->SetScale(40.0f, 40.0f);
+	auto transform = AddComponent<TransformComponent>();
+	transform->SetPosition(0.0f, 0.0f);
+	transform->SetScale(40.0f, 40.0f);
 
-    auto collision = AddComponent<CollisionComponent>();
-    collision->Initialize();
+	auto collision = AddComponent<CollisionComponent>();
+	collision->Initialize();
 
 }
-void CWoodBlockBack::Update(double dt)
+void CWoodBlock::Update(double dt)
 {
 	KeyInput(dt);
 }
-void CWoodBlockBack::KeyInput(double dt)
+void CWoodBlock::KeyInput(double dt)
 {
-	auto transform = GetComponent<TransformComponent>();
-	if (!transform) return;
-
-	auto input = Engine::GetInstance().GetInputSystem();
-	if (input->IsKeyDown('E')) {
-		transform->SetRotationZ(transform->GetRotationZ() + D3DXToRadian(3.f));
-	}
+	// auto transform = GetComponent<TransformComponent>();
+	// if (!transform) return;
+	// 
+	// auto input = Engine::GetInstance().GetInputSystem();
+	// if (input->IsKeyDown('E')) {
+	// 	transform->SetRotationZ(transform->GetRotationZ() + D3DXToRadian(3.f));
+	// }
 }
 
 
-void CWoodBlockBack::Render(HDC hdc) {
+void CWoodBlock::Render(HDC hdc) {
 
 	auto transform = GetComponent<TransformComponent>();
 	if (!transform) return; // 없으면 그리지 않음
-
 
 	COLORREF colorSet[4] = {
 	RGB(208, 182, 154),  // left
@@ -47,13 +46,9 @@ void CWoodBlockBack::Render(HDC hdc) {
 	RGB(141, 107, 69)  // bottom
 	};
 
-	HPEN Collison_linePen = CreatePen(PS_SOLID, 3,(bBlockCheak? RGB(185, 71, 25): RGB(161, 127, 89)));
-
-	HBRUSH transBrush = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
-	HPEN linePen = CreatePen(PS_SOLID, 2, RGB(45, 22, 5));
 	HPEN linePen2 = CreatePen(PS_SOLID, 2, RGB(106, 80, 52));
 	HPEN oldPen;
-	HBRUSH backBrush = CreateSolidBrush((bBlockCheak?RGB(191, 157, 119) :RGB(90, 44, 33)));
+	HBRUSH backBrush = CreateSolidBrush(RGB(191, 157, 119));
 
 	int iRotationStep = ((int)(D3DXToDegree(transform->GetRotationZ()) + 45) % 360) / 90;
 
@@ -91,7 +86,6 @@ void CWoodBlockBack::Render(HDC hdc) {
 		};
 		};
 
-	if (bBlockCheak) {
 		//바깥쪽
 		float Block_left = cx - halfW;
 		float Block_right = cx + halfW;
@@ -135,11 +129,11 @@ void CWoodBlockBack::Render(HDC hdc) {
 		oldBrush = (HBRUSH)SelectObject(hdc, rightBlockBrush);
 		Polygon(hdc, Block_rightPoint, 4);
 		SelectObject(hdc, oldBrush);
-		
+
 		oldBrush = (HBRUSH)SelectObject(hdc, topBlockBrush);
 		Polygon(hdc, Block_topPoint, 4);
 		SelectObject(hdc, oldBrush);
-		
+
 		oldBrush = (HBRUSH)SelectObject(hdc, bottomBlockBrush);
 		Polygon(hdc, Block_bottomPoint, 4);
 		SelectObject(hdc, oldBrush);
@@ -150,81 +144,13 @@ void CWoodBlockBack::Render(HDC hdc) {
 
 
 		SelectObject(hdc, oldPen);
-	}
-	else {
-		// 꼭짓점 기준 좌표 (중심 기준)
-		POINT points[4];
-
-		D3DXVECTOR3 localCorners[4] = {
-			{ -halfW, -halfH, 0 }, // LT
-			{  halfW, -halfH, 0 }, // RT
-			{  halfW,  halfH, 0 }, // RB
-			{ -halfW,  halfH, 0 }  // LB
-		};
-
-		for (int i = 0; i < 4; ++i) {
-			float x = localCorners[i].x;
-			float y = localCorners[i].y;
-
-			// 회전 적용
-			float rx = x * cosTheta - y * sinTheta;
-			float ry = x * sinTheta + y * cosTheta;
-
-			points[i].x = static_cast<LONG>(cx + rx);
-			points[i].y = static_cast<LONG>(cy + ry);
-
-		}
-		oldPen = (HPEN)SelectObject(hdc, linePen);
-		oldBrush = (HBRUSH)SelectObject(hdc, backBrush);
-		Polygon(hdc, points, 4);
-		SelectObject(hdc, oldBrush);
-		SelectObject(hdc, oldPen);
-	}
-
-		
+	
 
 
-		if (b_CllisionCheak) {
-			POINT collison_Points[4];
-
-			float Collison_halfW = scale.x * 0.35f;
-			float Collison_halfH = scale.y * 0.35f;
-
-			D3DXVECTOR3 Collison_localCorners[4] = {
-				{ -Collison_halfW, -Collison_halfH, 0 }, // LT
-				{  Collison_halfW, -Collison_halfH, 0 }, // RT
-				{  Collison_halfW,  Collison_halfH, 0 }, // RB
-				{ -Collison_halfW,  Collison_halfH, 0 }  // LB
-			};
-
-			for (int i = 0; i < 4; ++i) {
-				float x = Collison_localCorners[i].x;
-				float y = Collison_localCorners[i].y;
-
-				// 회전 적용
-				float rx = x * cosTheta - y * sinTheta;
-				float ry = x * sinTheta + y * cosTheta;
-
-				collison_Points[i].x = static_cast<LONG>(cx + rx);
-				collison_Points[i].y = static_cast<LONG>(cy + ry);
-			}
-
-
-			oldPen = (HPEN)SelectObject(hdc, Collison_linePen);
-			oldBrush = (HBRUSH)SelectObject(hdc, transBrush);
-			Polygon(hdc, collison_Points, 4);
-			SelectObject(hdc, oldBrush);
-			SelectObject(hdc, oldPen);
-		}
-
-
-		DeleteObject(Collison_linePen);
-		DeleteObject(transBrush);
-		DeleteObject(linePen);
-		DeleteObject(backBrush);
-		DeleteObject(leftBlockBrush);
-		DeleteObject(rightBlockBrush);
-		DeleteObject(topBlockBrush);
-		DeleteObject(bottomBlockBrush);
-		DeleteObject(linePen2);
+	DeleteObject(backBrush);
+	DeleteObject(leftBlockBrush);
+	DeleteObject(rightBlockBrush);
+	DeleteObject(topBlockBrush);
+	DeleteObject(bottomBlockBrush);
+	DeleteObject(linePen2);
 }

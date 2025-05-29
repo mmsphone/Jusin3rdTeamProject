@@ -31,7 +31,8 @@ void CWoodBlockCursor::Update(double dt) {
 
     transform->SetPosition((float)ptMouse.x, (float)ptMouse.y, 0);
 
-    ShowCursor(FALSE);
+    
+    //ShowCursor(bshow);
 }
 
 void CWoodBlockCursor::Render(HDC hdc) {
