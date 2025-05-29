@@ -6,18 +6,6 @@
 InputSystem::InputSystem() : keyDown(KEY_COUNT, false), wasKeyDown(KEY_COUNT, false), mouseDown(false), wasMouseDown(false)
 {}
 
-void InputSystem::OnKeyDown(WPARAM key) {
-    if (key < KEY_COUNT) {
-        keyDown[key] = true;
-    }
-}
-
-void InputSystem::OnKeyUp(WPARAM key) {
-    if (key < KEY_COUNT) {
-        keyDown[key] = false;
-    }
-}
-
 void InputSystem::OnMouseDown()
 {
     mouseDown = true;
@@ -28,7 +16,11 @@ void InputSystem::OnMouseUp()
     mouseDown = false;
 }
 void InputSystem::Tick() {
-    wasKeyDown = keyDown; // snapshot of previous frame
+    for (int i = 0; i < KEY_COUNT; ++i)
+    {
+        wasKeyDown[i] = keyDown[i];
+        keyDown[i] = (GetAsyncKeyState(i) & 0x8000) != 0;
+    }    
     wasMouseDown = mouseDown;
 }
 

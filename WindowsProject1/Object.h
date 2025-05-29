@@ -14,6 +14,8 @@ public:
     Object(ObjectManager*, ObjectType, RenderType type = RenderType::Rect);
     virtual void Update(double dt);
     virtual void Render(HDC hdc);
+    virtual void Render(LPDIRECT3DDEVICE9 hdc) {};
+
     void SetDead() { isDead = true; };
     bool IsDead() const { return isDead; }
     ObjectManager* GetOwner() { return owner; };

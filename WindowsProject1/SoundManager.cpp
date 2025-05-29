@@ -1,123 +1,106 @@
 ﻿#include "pch.h"
 #include "SoundManager.h"
 
-void SoundManager::Initialize() {
-    if (system) return;
-    FMOD::System_Create(&system);
+SoundManager::SoundManager() {
+    FMOD_RESULT result = FMOD::System_Create(&system);
+    if (result != FMOD_OK || system == nullptr) {
+        std::cout << "FMOD System_Create 실패: " << FMOD_ErrorString(result) << std::endl;
+        return;
+    }    
     system->init(512, FMOD_INIT_NORMAL, 0);
 }
 
-std::string SoundManager::WStringToString(const std::wstring& wstr) {
-    if (wstr.empty()) return std::string();
-
-    int sizeNeeded = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
-    std::string result(sizeNeeded, 0);
-    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, &result[0], sizeNeeded, nullptr, nullptr);
-
-    if (!result.empty() && result.back() == '\0') {
-        result.pop_back();
+SoundManager::~SoundManager() {
+    for (auto& [_, sound] : sounds) {
+        sound->release();
     }
-
-    return result;
+    system->close();
+    system->release();
 }
 
-void SoundManager::InsertSound(const std::wstring& filePath, const std::wstring& key, bool loop) {
-    if (mapSound.find(key) != mapSound.end()) return;
 
+bool SoundManager::LoadSound(const std::string& name, const std::string& filePath, bool loop, double volume) {
     FMOD_MODE mode = loop ? FMOD_LOOP_NORMAL : FMOD_DEFAULT;
     FMOD::Sound* sound = nullptr;
 
-    std::string filePathUtf8 = WStringToString(filePath);
-
-    if (system->createSound(filePathUtf8.c_str(), mode, nullptr, &sound) == FMOD_OK) {
-        mapSound[key] = sound;
-        std::wcout << L"사운드 삽입 완료: " << key << std::endl;
+    // 오류 코드 확인
+    FMOD_RESULT result = system->createSound(filePath.c_str(), mode, nullptr, &sound);
+    if (result == FMOD_OK) {
+        sounds[name] = sound;
+        SetVolume(name, volume);
+        return true;
     }
     else {
-        std::wcout << L"사운드 로드 실패: " << filePath << std::endl;
+        std::cout << "FMOD Error: " << FMOD_ErrorString(result) << std::endl;
+        return false;
     }
 }
+void SoundManager::StartSound(const std::string& name, bool record) {
+    if (sounds.count(name)) {
+        system->playSound(sounds[name], 0, false, &channels[name]);
 
-void SoundManager::PlaySound(const std::wstring& key, float volume) {
-    std::wcout << L"PlaySound 호출된 키: " << key << std::endl;
-    auto it = mapSound.find(key);
-    if (it == mapSound.end()) {
-        std::wcout << L"사운드 키 없음: " << key << std::endl;
-        return;
-    }
-
-    FMOD::Channel* channel = nullptr;
-    system->playSound(it->second, nullptr, false, &channel);
-    if (channel) {
-        channel->setVolume(volume);
-    }
-    mapChannel[key] = channel;
-}
-
-void SoundManager::StopSound(const std::wstring& key) {
-    auto it = mapChannel.find(key);
-    if (it != mapChannel.end() && it->second) {
-        bool isPlaying = false;
-        it->second->isPlaying(&isPlaying);
-        if (isPlaying) {
-            it->second->stop();
+        if (volumeMap.count(name)) {
+            channels[name]->setVolume(volumeMap[name]);
         }
 
-        mapChannel.erase(it);
+    }
+    else
+    {
+        std::cout << "Can't find sound: " + name << std::endl;
     }
 }
 
-void SoundManager::SetVolume(const std::wstring& key, float volume)
+void SoundManager::SetPlaySpeed(const std::string& name, float rate)
 {
-    auto it = mapChannel.find(key);
-    if (it != mapChannel.end()) {
-        FMOD::Channel* channel = it->second;
-        if (channel) {
-            channel->setVolume(volume);
-            std::wcout << L"볼륨 설정 완료: " << key << L" -> " << volume << std::endl;
+    if (channels.count(name)) {
+        float baseFreq = 0.0f;
+
+        // 초기화된 적 없으면 저장
+        if (!originalFrequencies.count(name)) {
+            channels[name]->getFrequency(&baseFreq);
+            originalFrequencies[name] = baseFreq;
         }
-    }
-    else {
-        std::wcerr << L"채널 찾기 실패: " << key << std::endl;
+        else {
+            baseFreq = originalFrequencies[name];
+        }
+
+        channels[name]->setFrequency(baseFreq * rate);
     }
 }
 
+void SoundManager::StopSound(const std::string& name, bool record) {
+    if (channels.count(name)) {
+        channels[name]->stop();
+    }
+}
+
+void SoundManager::SetVolume(const std::string& name, float volume) {
+    volumeMap[name] = volume;
+
+    if (channels.count(name)) {
+        channels[name]->setVolume(volume);
+    }
+}
 void SoundManager::Update() {
-    if (system) {
-        system->update();
+    system->update();
+}
 
-        // 채널이 재생 중인지 확인하고, 종료된 채널을 mapChannel에서 제거
-        for (auto it = mapChannel.begin(); it != mapChannel.end(); ) {
-            bool isPlaying = false;
-            it->second->isPlaying(&isPlaying);
-
-            if (!isPlaying) {
-                // 사운드가 끝나면 채널 비우기
-                it = mapChannel.erase(it); // 채널 제거 후, it를 한 칸 뒤로 이동
-            }
-            else {
-                ++it;
-            }
+void SoundManager::PauseSound(const std::string& name) {
+    if (channels.count(name)) {
+        bool isPlaying = false;
+        channels[name]->isPlaying(&isPlaying);
+        if (isPlaying) {
+            channels[name]->setPaused(true);
         }
     }
 }
 
-void SoundManager::Release() {
-    for (auto& pair : mapSound) {
-        if (pair.second) {
-            pair.second->release();
+void SoundManager::ResumeSound(const std::string& name) {
+    if (channels.count(name)) {
+        bool isPaused = false;
+        channels[name]->getPaused(&isPaused);
+        if (isPaused) {
+            channels[name]->setPaused(false);
         }
     }
-    mapSound.clear();
-    mapChannel.clear();
-
-    if (system) {
-        system->close();
-        system->release();
-        system = nullptr;
-    }
-}
-
-SoundManager::~SoundManager() {
-    Release();
 }

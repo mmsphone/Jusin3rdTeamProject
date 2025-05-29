@@ -30,6 +30,7 @@ private:
 	HACCEL hAccel;
 	MSG msg;
 	RECT windowSize;
+
 private:
 	bool isRunning = true;
 

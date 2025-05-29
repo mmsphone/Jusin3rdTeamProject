@@ -8,7 +8,7 @@ protected:
     double elapsedTime;  // 경과 시간
 
 public:
-    Effect(ObjectManager* owner, ObjectType type);
+    Effect(ObjectManager* owner, ObjectType type = ObjectType::Effect);
 
     virtual ~Effect() {}
 

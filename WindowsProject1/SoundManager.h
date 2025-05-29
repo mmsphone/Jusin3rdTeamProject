@@ -1,26 +1,30 @@
 ﻿#pragma once
-
 class SoundManager {
 public:
-    SoundManager() noexcept = default;
+    SoundManager();
+
     ~SoundManager();
-    SoundManager(const SoundManager&) = delete;
-    SoundManager& operator=(const SoundManager&) = delete;
-    SoundManager(SoundManager&&) = delete;
-    SoundManager& operator=(SoundManager&&) = delete;
 
-    void Initialize();
-    void InsertSound(const std::wstring& filePath, const std::wstring& key, bool loop = false);
-    void PlaySound(const std::wstring& key, float volume = 1.f);
-    void StopSound(const std::wstring& key);
-    void SetVolume(const std::wstring& key, float volume);
+    bool LoadAllSoundsFromFile(const std::string& listFilePath);
+
+    bool LoadSound(const std::string& name, const std::string& filePath, bool loop = false, double volume = 1.0);
+
+    void StartSound(const std::string& name, bool record = true);
+
+    void StopSound(const std::string& name, bool record = true);
+
+    void SetPlaySpeed(const std::string& name, float rate = 1.0);
+
+    void SetVolume(const std::string& name, float volume);
+
     void Update();
-    void Release();
-
+    void PauseSound(const std::string& name);
+    void ResumeSound(const std::string& name);
 private:
     FMOD::System* system = nullptr;
-    std::unordered_map<std::wstring, FMOD::Sound*> mapSound;
-    std::unordered_map<std::wstring, FMOD::Channel*> mapChannel;
+    std::map<std::string, FMOD::Sound*> sounds;
+    std::map<std::string, FMOD::Channel*> channels;
+    std::unordered_map<std::string, float> volumeMap;
+    std::unordered_map<std::string, float> originalFrequencies;
 
-    std::string WStringToString(const std::wstring& wstr); // 유니코드 변환 함수
 };
