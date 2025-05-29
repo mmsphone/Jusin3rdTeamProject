@@ -118,6 +118,9 @@
     <Filter Include="04. Object\01.Back\CardDeck">
       <UniqueIdentifier>{fdc11444-d289-490c-952e-718eeae64282}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Object\04.Effect\ShuffleEffect">
+      <UniqueIdentifier>{b1a4c0ef-0374-4090-ad74-9464a7ed5929}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -201,6 +204,9 @@
     <ClInclude Include="CardDeck.h">
       <Filter>04. Object\01.Back\CardDeck</Filter>
     </ClInclude>
+    <ClInclude Include="ShuffleEffect.h">
+      <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -283,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="CardDeck.cpp">
       <Filter>04. Object\01.Back\CardDeck</Filter>
+    </ClCompile>
+    <ClCompile Include="ShuffleEffect.cpp">
+      <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

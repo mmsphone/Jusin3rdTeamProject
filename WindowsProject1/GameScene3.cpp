@@ -9,6 +9,7 @@
 #include "CardDeck.h"
 #include "ButtonObject.h"
 #include "SceneManager.h"
+#include "ShuffleEffect.h"
 void GameScene3::Load() {
 	Scene::Load();
 	objectManager->Initialize();
@@ -75,6 +76,7 @@ void GameScene3::Load() {
 	pDeckTransform->SetScale(50.0f, 70.0f, 0.0f);
 
 	m_vecDeck.clear();
+	RefillDeckIfEmpty();
 }
 void GameScene3::Update(double dt) {
 	objectManager->Update(dt);
@@ -85,6 +87,13 @@ void GameScene3::Update(double dt) {
 			Engine::GetInstance().sceneManager->SetActiveScene("Menu");
 			return;
 		}
+	}
+	if (m_bShuffling) {
+		m_fShuffleElapsed += dt;
+		if (m_fShuffleElapsed >= 5.0) {
+			m_bShuffling = false;
+		}
+		return; // 셔플 중엔 아무것도 안 함
 	}
 	if (UpdateDrawingCard()) return;
 	if (UpdateSubmittedCard()) return;
@@ -220,12 +229,10 @@ void GameScene3::RefillDeckIfEmpty() {
 
 	std::vector<Card*> vecUsedCards;
 
-	// 전체 오브젝트 중에서 카드만 추출
 	for (auto& pObj : objectManager->GetObjectList(ObjectType::Mid)) {
 		Card* pCard = dynamic_cast<Card*>(pObj.get());
 		if (!pCard) continue;
 
-		// 필드, 손패에 있는 카드라면 제외
 		if (pCard == m_pFieldCard) continue;
 		if (std::find(m_vecPlayerHand.begin(), m_vecPlayerHand.end(), pCard) != m_vecPlayerHand.end()) continue;
 		if (std::find(m_vecAIHand.begin(), m_vecAIHand.end(), pCard) != m_vecAIHand.end()) continue;
@@ -235,9 +242,20 @@ void GameScene3::RefillDeckIfEmpty() {
 
 	for (Card* pCard : vecUsedCards) {
 		m_vecDeck.push_back(pCard);
+		pCard->SetVisible(true); // 보이도록 설정
 	}
 
 	ShuffleDeck();
+
+	auto pEffect = new ShuffleEffect(objectManager.get(), vecUsedCards.size(),
+		m_pFieldCard->GetComponent<TransformComponent>()->GetPosition(),
+		m_pCardDeck->GetComponent<TransformComponent>()->GetPosition());
+
+	objectManager->AddObject(ObjectType::Effect, std::shared_ptr<Object>(pEffect));
+
+	// 🔷 셔플 중 상태로 설정
+	m_bShuffling = true;
+	m_fShuffleElapsed = 0.0;
 }
 void GameScene3::NextTurn() {
 	m_eTurn = (m_eTurn == eTurn::Player) ? eTurn::AI : eTurn::Player;

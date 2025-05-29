@@ -53,6 +53,8 @@ private:
 
 	std::wstring m_strTurnText;
 
+	bool m_bShuffling = false;
+	double m_fShuffleElapsed = 0.0;
 public:
 	virtual void Load() override;
 	virtual void Update(double dt) override;
