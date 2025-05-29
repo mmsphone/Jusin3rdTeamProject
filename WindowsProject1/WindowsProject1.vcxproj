@@ -145,6 +145,10 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardDeck.h" />
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="CWoodBlockBack.h" />
+    <ClInclude Include="CWoodBlockButton.h" />
+    <ClInclude Include="CWoodBlockCursor.h" />
+    <ClInclude Include="CWoodMainBacks.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene2.h" />
     <ClInclude Include="GameScene3.h" />
@@ -175,6 +179,10 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardDeck.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="CWoodBlockBack.cpp" />
+    <ClCompile Include="CWoodBlockButton.cpp" />
+    <ClCompile Include="CWoodBlockCursor.cpp" />
+    <ClCompile Include="CWoodMainBacks.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameScene1.cpp" />

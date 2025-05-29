@@ -12,4 +12,7 @@ public:
 
 public:
 	std::unique_ptr<ObjectManager> objectManager;
+
+private:
+
 };
