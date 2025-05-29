@@ -8,11 +8,13 @@ class ButtonYu : public Object
 public:
 	BUTTON_ID m_eButtonID;
 public:
-	ButtonYu(ObjectManager* owner, ObjectType objType, BUTTON_ID eID);
+	ButtonYu(ObjectManager* owner, ObjectType objType, BUTTON_ID eIDm, int* pC);
 
 	virtual void Update(double dt);
-
+	virtual void Render(HDC hdc) override;
 private:
 	void KeyInput(double dt);
+
+	int* pCoin;
 };
 
