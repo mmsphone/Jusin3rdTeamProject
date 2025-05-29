@@ -44,10 +44,10 @@ void Physics3D::ResolveCollision(Physics3D* other)
     D3DXVECTOR3 n = posB - posA;
     float distSq = n.x * n.x + n.z * n.z; // Y 무시
     float minDist = radiusA + radiusB;
-    if (distSq > minDist * minDist) return; // 충돌하지 않음
+    if (distSq >= minDist * minDist) return; // 충돌하지 않음
 
     D3DXVec3Normalize(&n, &n);
-    Engine::GetInstance().GetSoundManager()->StartSound("shot");
+    Engine::GetInstance().GetSoundManager()->StartSound("crash");
 
     float dist = sqrtf(distSq);
     float penetration = minDist - dist;
