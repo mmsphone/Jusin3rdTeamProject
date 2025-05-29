@@ -21,7 +21,7 @@ void Stone::Update(double dt)
     {
         if(stone.get() != this) physics->ResolveCollision(stone->GetComponent<Physics3D>());
     }
-
+    transform->vPosition.y = 0.5 + 0.5 * transform->GetScale().z;
     auto camOffset = camera->position - camera->target;
     camera->target = transform->GetPosition();
     camera->position = camera->target + camOffset;

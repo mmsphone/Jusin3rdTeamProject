@@ -8,11 +8,25 @@
 #include "TransformComponent.h"
 #include "Physics3D.h"
 #include "InputSystem.h"
+#include "SoundManager.h"
+#include <filesystem>
+
+
+
 void GameScene4::Load()
 {
 	Scene::Load();
     InitDirect3D(Engine::GetInstance().GethWnd());
     CreatePrimitives();
+    auto sm = Engine::GetInstance().GetSoundManager();
+
+    sm->LoadSound("chooseStone", "../sound/chooseStone.wav", false);
+    sm->LoadSound("considerStone", "../sound/considerStone.wav", false);
+    sm->LoadSound("charge", "../sound/charge.wav", false);
+    sm->LoadSound("shot", "../sound/shot.wav", false);
+    sm->LoadSound("crash", "../sound/crash.wav", false);
+
+
     auto plate = std::make_shared<Plate>(objectManager.get(), ObjectType::Back);
 
     mainCam = plate->GetComponent<Camera3D>();
@@ -38,7 +52,7 @@ void GameScene4::Load()
         auto camera = stone->GetComponent<Camera3D>();
         camera->LookAt(transform->GetPosition() + D3DXVECTOR3(0.0, yCam, zCam), transform->GetPosition(), D3DXVECTOR3(0.0, 1.0, 0.0));
         
-        auto phyics3D = stone->AddComponent<Physics3D>(transform, camera, 0.1, 0.2);
+        auto phyics3D = stone->AddComponent<Physics3D>(transform, camera, 0.15, 0.2);
         stone->physics = phyics3D;
 
         objectManager->AddObject(ObjectType::Front, stone);
@@ -156,6 +170,7 @@ void GameScene4::Update(double dt)
 {
 
 	objectManager->Update(dt);
+    auto sm = Engine::GetInstance().GetSoundManager();
 
     auto inputSystem = Engine::GetInstance().GetInputSystem();
 
@@ -163,11 +178,12 @@ void GameScene4::Update(double dt)
     {
     case States::Idle:
     {
-        D3DXVECTOR3 RayOrigin, RayDir;
-        CreateRayFromMouse(RayOrigin, RayDir);
-        float closestT = FLT_MAX;
+
         if (inputSystem->IsMouseDown())
         {
+            D3DXVECTOR3 RayOrigin, RayDir;
+            CreateRayFromMouse(RayOrigin, RayDir);
+            float closestT = FLT_MAX;
             for (auto s : objectManager->GetObjectList(ObjectType::Front))
             {
                 auto stone = dynamic_cast<Stone*>(s.get());
@@ -179,6 +195,10 @@ void GameScene4::Update(double dt)
                         if (t < closestT)
                         {
                             closestT = t;
+                            if (stone != chosenStone)
+                            {
+                                sm->StartSound("chooseStone");
+                            }
                             chosenStone = stone;
                         }
                     }
@@ -187,21 +207,25 @@ void GameScene4::Update(double dt)
             if (closestT == FLT_MAX)
             {
                 mainCam = originalCam;
+                if (chosenStone)
+                {
+                    sm->StartSound("chooseStone");
+                }
                 chosenStone = nullptr;
             }
         }
         
 
-        if (inputSystem->IsKeyPressed(VK_SPACE))
+        if (chosenStone && inputSystem->IsKeyPressed(VK_SPACE))
         {
             mainCam = chosenStone->camera;
             state = States::Pick;
+            sm->StartSound("considerStone");
+
         }
     } break;
     case States::Pick:
     {
-
-
         D3DXVECTOR3 target = chosenStone->GetComponent<TransformComponent>()->GetPosition();
 
         D3DXVECTOR3 camPos = mainCam->GetPosition();
@@ -214,8 +238,14 @@ void GameScene4::Update(double dt)
 
         // 회전
         float angleDelta = PI * 0.5f; // 회전 속도 (라디안)
-        if (inputSystem->IsKeyDown(VK_LEFT))    angle -= angleDelta * dt;
-        if (inputSystem->IsKeyDown(VK_RIGHT))   angle += angleDelta * dt;
+        if (inputSystem->IsKeyDown(VK_LEFT))
+        {
+            angle -= angleDelta * dt;
+        }
+        if (inputSystem->IsKeyDown(VK_RIGHT))
+        {
+            angle += angleDelta * dt;
+        }
 
         // 새 위치 계산 (Y 높이는 그대로)
         D3DXVECTOR3 newPos = D3DXVECTOR3(
@@ -236,24 +266,34 @@ void GameScene4::Update(double dt)
             mainCam = originalCam;
             chosenStone = nullptr;
             state = States::Idle;
+            sm->StartSound("considerStone");
         }
         if (inputSystem->IsKeyPressed(VK_UP))
         {
+            sm->StartSound("charge");
+
             state = States::Charge;
         }
     } break;
     case States::Charge:
     {
+        if (inputSystem->IsKeyPressed(VK_SPACE))
+        {
+            mainCam = originalCam;
+        }
         speed += 0.1;
         speed = std::min(speed, maxSpeed);
 
         if (inputSystem->IsKeyReleased(VK_UP) && speed > 0.f)
         {
-            auto dir = (mainCam->target - mainCam->position);
+            auto dir = (chosenStone->camera->target - chosenStone->camera->position);
             dir.y = 0.;
             chosenStone->physics->velocity = speed * dir;
             speed = 0.;
             state = States::Shot;
+            sm->StopSound("charge");
+            sm->StartSound("shot");
+
         }
     } break;
     case States::Shot:
@@ -298,6 +338,7 @@ void GameScene4::Update(double dt)
                     }
                 }
             }
+            timer = 0.f;
             chosenStone = nullptr;
             state = States::Idle;
         }
@@ -329,7 +370,7 @@ void GameScene4::Render(HDC hdc)
 
     if (state == States::Pick || state == States::Charge)
     {
-        auto dir = (mainCam->target - mainCam->position);
+        auto dir = (chosenStone->camera->target - chosenStone->camera->position);
         dir.y = 0.;
         D3DXVECTOR3 lineVerts[] = { chosenStone->transform->GetPosition(), chosenStone->transform->GetPosition() + dir * 3.f};
         line->Begin();

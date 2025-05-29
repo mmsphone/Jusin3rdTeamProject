@@ -117,6 +117,7 @@
     </Filter>
     <Filter Include="04. Object\02.Mid\CoinYu">
       <UniqueIdentifier>{7b1ec384-22a6-4fbb-9a92-6bc252bced63}</UniqueIdentifier>
+	  </Filter>
     <Filter Include="04. Object\02.Mid\Card">
       <UniqueIdentifier>{7ecb0d78-ba2a-4f74-8575-ba10ed493260}</UniqueIdentifier>
     </Filter>
@@ -128,6 +129,7 @@
     </Filter>
     <Filter Include="04. Object\04.Effect\ShuffleEffect">
       <UniqueIdentifier>{b1a4c0ef-0374-4090-ad74-9464a7ed5929}</UniqueIdentifier>
+	  </Filter>
     <Filter Include="04. Object\01.Back\WoodBlocks">
       <UniqueIdentifier>{3df6c5ee-5790-4509-945b-768c79db3a19}</UniqueIdentifier>
     </Filter>
@@ -231,6 +233,7 @@
     </ClInclude>
     <ClInclude Include="CoinYu.h">
       <Filter>04. Object\02.Mid\CoinYu</Filter>
+	</ClInclude>
     <ClInclude Include="Card.h">
       <Filter>04. Object\02.Mid\Card</Filter>
     </ClInclude>
@@ -242,6 +245,7 @@
     </ClInclude>
     <ClInclude Include="ShuffleEffect.h">
       <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
+	</ClInclude>
     <ClInclude Include="CWoodBlockBack.h">
       <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
     </ClInclude>
@@ -348,6 +352,7 @@
     </ClCompile>
     <ClCompile Include="CoinYu.cpp">
       <Filter>04. Object\02.Mid\CoinYu</Filter>
+	</ClCompile>
     <ClCompile Include="Card.cpp">
       <Filter>04. Object\02.Mid\Card</Filter>
     </ClCompile>
@@ -359,6 +364,7 @@
     </ClCompile>
     <ClCompile Include="ShuffleEffect.cpp">
       <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
+	</ClCompile>
     <ClCompile Include="CWoodBlockBack.cpp">
       <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
     </ClCompile>
