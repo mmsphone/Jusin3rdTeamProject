@@ -23,7 +23,6 @@ bool Engine::Initialize(HINSTANCE hInstance, int nCmdShow)
     inputSystem = std::make_unique<InputSystem>();
 
     soundManager = std::make_unique<SoundManager>();
-    soundManager->Initialize();
 
     textureManager = std::make_unique<TextureManager>();
 

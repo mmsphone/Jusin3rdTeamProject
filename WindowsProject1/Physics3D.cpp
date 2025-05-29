@@ -3,12 +3,15 @@
 #include "Camera3D.h"
 #include "TransformComponent.h"
 
+#include "Engine.h"
+#include "SoundManager.h"
 Physics3D::Physics3D(TransformComponent* transform, Camera3D* cam, float mass, float size) : transform(transform), cam(cam), mass(mass), size(size)
 {
 }
 
 void Physics3D::Update(double dt) 
 {
+    velocity.y = 0.f;
     transform->Translate(velocity * dt);
 
     
@@ -24,6 +27,7 @@ void Physics3D::Update(double dt)
 
 void Physics3D::ResolveCollision(Physics3D* other)
 {
+
     // 돌 A
     D3DXVECTOR3 posA = transform->GetPosition();
     D3DXVECTOR3& velA = velocity;
@@ -43,6 +47,7 @@ void Physics3D::ResolveCollision(Physics3D* other)
     if (distSq > minDist * minDist) return; // 충돌하지 않음
 
     D3DXVec3Normalize(&n, &n);
+    Engine::GetInstance().GetSoundManager()->StartSound("shot");
 
     float dist = sqrtf(distSq);
     float penetration = minDist - dist;
@@ -59,12 +64,17 @@ void Physics3D::ResolveCollision(Physics3D* other)
     if (D3DXVec3LengthSq(&velB) < 0.0001f) // 정지한 돌
     {
         float speedA = D3DXVec3Length(&velA);
+        D3DXVec3Normalize(&velA, &velA); // A의 방향
+        float dot = D3DXVec3Dot(&velA, &n);
+
+        D3DXVECTOR3 reflectA = velA - 2 * dot * n;
+
         float totalMass = massA + massB;
         float ratioB = massA / totalMass;
         float ratioA = massB / totalMass;
 
         velB = n * speedA * ratioB;
-        velA *= (1.0f - ratioB); // A는 그만큼 감속
+        velA = reflectA * speedA * ratioA;
 
         return;
     }

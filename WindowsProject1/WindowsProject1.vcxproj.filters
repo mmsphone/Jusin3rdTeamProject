@@ -109,6 +109,33 @@
     <Filter Include="04. Object\06.Cursor">
       <UniqueIdentifier>{d3e4d672-f2db-48b3-a90a-8d46d1dabefd}</UniqueIdentifier>
     </Filter>
+<<<<<<< Updated upstream
+=======
+    <Filter Include="04. Object\00.Neutral\BigWheel_Yu">
+      <UniqueIdentifier>{c0b2ab6a-fc2a-4668-92cf-aec1d645cde2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\01.Back\ButtonYu">
+      <UniqueIdentifier>{b7ad5212-9f98-4ccc-a0a1-6d7cc3ce05ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Miscellaneous\math">
+      <UniqueIdentifier>{88076f13-bfce-48a9-9fb1-8a48840677ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Mid\CoinYu">
+      <UniqueIdentifier>{7b1ec384-22a6-4fbb-9a92-6bc252bced63}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="04. Object\02.Mid\Card">
+      <UniqueIdentifier>{7ecb0d78-ba2a-4f74-8575-ba10ed493260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02.Mid\Player">
+      <UniqueIdentifier>{b130b061-7040-4411-840f-6811fadb4a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\01.Back\CardDeck">
+      <UniqueIdentifier>{fdc11444-d289-490c-952e-718eeae64282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\04.Effect\ShuffleEffect">
+      <UniqueIdentifier>{b1a4c0ef-0374-4090-ad74-9464a7ed5929}</UniqueIdentifier>
+	</Filter>
+>>>>>>> Stashed changes
     <Filter Include="04. Object\01.Back\WoodBlocks">
       <UniqueIdentifier>{3df6c5ee-5790-4509-945b-768c79db3a19}</UniqueIdentifier>
     </Filter>
@@ -207,6 +234,30 @@
     <ClInclude Include="AnimationComponent.h">
       <Filter>05. Object Component\Animation</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="BigWheel.h">
+      <Filter>04. Object\00.Neutral\BigWheel_Yu</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonYu.h">
+      <Filter>04. Object\01.Back\ButtonYu</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinYu.h">
+      <Filter>04. Object\02.Mid\CoinYu</Filter>
+	</ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>04. Object\02.Mid\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>04. Object\02.Mid\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CardDeck.h">
+      <Filter>04. Object\01.Back\CardDeck</Filter>
+    </ClInclude>
+    <ClInclude Include="ShuffleEffect.h">
+      <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
+	</ClInclude>
+>>>>>>> Stashed changes
     <ClInclude Include="CWoodBlockBack.h">
       <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
     </ClInclude>
@@ -308,6 +359,30 @@
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>05. Object Component\Animation</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="BigWheel.cpp">
+      <Filter>04. Object\00.Neutral\BigWheel_Yu</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonYu.cpp">
+      <Filter>04. Object\01.Back\ButtonYu</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinYu.cpp">
+      <Filter>04. Object\02.Mid\CoinYu</Filter>
+	</ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>04. Object\02.Mid\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>04. Object\02.Mid\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CardDeck.cpp">
+      <Filter>04. Object\01.Back\CardDeck</Filter>
+    </ClCompile>
+    <ClCompile Include="ShuffleEffect.cpp">
+      <Filter>04. Object\04.Effect\ShuffleEffect</Filter>
+	</ClCompile>
+>>>>>>> Stashed changes
     <ClCompile Include="CWoodBlockBack.cpp">
       <Filter>04. Object\01.Back\WoodBlocks\WoodBlockBack</Filter>
     </ClCompile>
